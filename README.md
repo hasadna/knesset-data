@@ -9,4 +9,4 @@ Project Goals:
 
 * document the APIs
 * track [bugs and problems](https://github.com/hasadna/knesset-dataservice/issues)
-* provide easy to use APIs in Python (possibly other language as well)
+* provide easy to use APIs in Python (possibly other languages as well)
