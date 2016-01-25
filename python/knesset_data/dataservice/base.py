@@ -3,17 +3,26 @@ import urllib2
 import datetime
 
 
-class KnessetDataServiceField(object):
+class BaseKnessetDataServiceField(object):
+
+    def get_value(self, entry):
+        raise Exception('must be implemented by extending classes, should return the value for this field')
+
+    def get_order_by_field(self):
+        raise Exception('must be implemented by extending classes if order by support is needed for this field')
+
+
+class KnessetDataServiceSimpleField(BaseKnessetDataServiceField):
 
     def __init__(self, knesset_field_name):
-        self.knesset_field_name = knesset_field_name
+        self._knesset_field_name = knesset_field_name
 
     def get_value(self, entry):
         data = entry['data']
-        return data[self.knesset_field_name]
+        return data[self._knesset_field_name]
 
     def get_order_by_field(self):
-        return self.knesset_field_name
+        return self._knesset_field_name
 
 
 class BaseKnessetDataServiceObject(object):
@@ -100,7 +109,7 @@ class BaseKnessetDataServiceObject(object):
 
     @classmethod
     def get_page(cls, order_by=None, results_per_page=50, page_num=1):
-        if not order_by:
+        if not order_by and cls.DEFAULT_ORDER_BY_FIELD:
             order_by = (cls.DEFAULT_ORDER_BY_FIELD, 'desc')
         if order_by:
             order_by_field, order_by_dir = order_by
@@ -111,21 +120,6 @@ class BaseKnessetDataServiceObject(object):
             raise Exception('looks like you asked for too much results per page, 50 results per page usually works')
         else:
             return [cls(cls._parse_entry(entry)) for entry in soup.feed.find_all('entry')]
-
-    @classmethod
-    def get_pages(cls, order_by=None, results_per_page=50, start_page_num=1, min_num_of_empty_to_stop=20, max_iterations=10):
-        all_results = []
-        num_of_empty = 0
-        page_num = start_page_num
-        for i in range(0, max_iterations):
-            values = cls.get_page(order_by, results_per_page, page_num)
-            all_results += values
-            num_of_empty += (results_per_page - len(values))
-            if num_of_empty > min_num_of_empty_to_stop:
-                break
-            else:
-                page_num += 1
-        return all_results
 
     def __init__(self, entry):
         self._entry = entry

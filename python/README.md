@@ -1,4 +1,4 @@
-knesset-dataservice
-===================
+knesset-data
+============
 
-A python module that provide api to the Knesset data services
+A python module that provides api to available Israeli Parliament (Knesset) data

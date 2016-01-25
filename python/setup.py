@@ -2,13 +2,13 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='knesset-dataservice',
+    name='knesset-data',
     version='0.0.1',
-    description='API to the Knesset (Israely parliament) data service',
+    description='API for access to available Israely Parliament (Knesset) data',
     author='Ori Hoch',
     author_email='ori@uumpa.com',
     license='GPLv3',
-    url='https://github.com/hasadna/knesset-dataservice',
+    url='https://github.com/hasadna/knesset-data',
     packages=find_packages(exclude=["tests", "test.*"]),
     install_requires=['beautifulsoup4']
 )
