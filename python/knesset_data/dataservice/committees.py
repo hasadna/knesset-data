@@ -1,4 +1,4 @@
-from base import BaseKnessetDataServiceObject, KnessetDataServiceSimpleField
+from base import BaseKnessetDataServiceObject, KnessetDataServiceSimpleField, KnessetDataServiceDateTimeField, KnessetDataServiceStrptimeField
 
 
 class Committee(BaseKnessetDataServiceObject):
@@ -21,4 +21,31 @@ class Committee(BaseKnessetDataServiceObject):
         'note': KnessetDataServiceSimpleField('committee_note'),
         'note_eng': KnessetDataServiceSimpleField('committee_note_eng'),
         'portal_link': KnessetDataServiceSimpleField('committee_portal_link'),
+    }
+
+
+class CommitteeMeeting(BaseKnessetDataServiceObject):
+
+    SERVICE_NAME = "CommitteeScheduleData"
+    METHOD_NAME = "View_protocols"
+    DEFAULT_ORDER_BY_FIELD = "date"
+    FIELDS = {
+        'id': KnessetDataServiceSimpleField('Protocol_id'),
+        'committee_id': KnessetDataServiceSimpleField('Committee_id'),
+        'date': KnessetDataServiceSimpleField('Protocol_date'),
+        'time': KnessetDataServiceStrptimeField('Protocol_time'),
+        'datetime': KnessetDataServiceDateTimeField('date', 'time'),
+        'agendum1': KnessetDataServiceSimpleField('AGENDUM1'),
+        'agendum2': KnessetDataServiceSimpleField('AGENDUM2'),
+        'agendum3': KnessetDataServiceSimpleField('AGENDUM3'),
+        'agendum4': KnessetDataServiceSimpleField('AGENDUM4'),
+        'agendum5': KnessetDataServiceSimpleField('AGENDUM5'),
+        'agendum6': KnessetDataServiceSimpleField('AGENDUM6'),
+        'agendum7': KnessetDataServiceSimpleField('AGENDUM7'),
+        'agendum8': KnessetDataServiceSimpleField('AGENDUM8'),
+        'nochechim': KnessetDataServiceSimpleField('NOCHECHIM'),
+        'muzmanim': KnessetDataServiceSimpleField('MUZMANIM'),
+        'yoetz': KnessetDataServiceSimpleField('YOETZ'),
+        'menahel': KnessetDataServiceSimpleField('MENAHEL'),
+        'link': KnessetDataServiceSimpleField('Protocol_link'),
     }

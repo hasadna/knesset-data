@@ -5,11 +5,16 @@ import datetime
 
 class BaseKnessetDataServiceField(object):
 
+    DEPENDS_ON_OBJ_FIELDS = False
+
     def get_value(self, entry):
-        raise Exception('must be implemented by extending classes, should return the value for this field')
+        raise Exception('must be implemented by extending classes')
 
     def get_order_by_field(self):
         raise Exception('must be implemented by extending classes if order by support is needed for this field')
+
+    def set_value(self, obj, attr_name, entry):
+        setattr(obj, attr_name, self.get_value(entry))
 
 
 class KnessetDataServiceSimpleField(BaseKnessetDataServiceField):
@@ -19,10 +24,34 @@ class KnessetDataServiceSimpleField(BaseKnessetDataServiceField):
 
     def get_value(self, entry):
         data = entry['data']
-        return data[self._knesset_field_name]
+        return data[self._knesset_field_name.lower()]
 
     def get_order_by_field(self):
         return self._knesset_field_name
+
+
+class KnessetDataServiceStrptimeField(KnessetDataServiceSimpleField):
+
+    def __init__(self, knesset_field_name, strptime_format='%H:%M'):
+        super(KnessetDataServiceStrptimeField, self).__init__(knesset_field_name)
+        self._strptime_format = strptime_format
+
+    def get_value(self, entry, obj=None):
+        str = super(KnessetDataServiceStrptimeField, self).get_value(entry)
+        return datetime.datetime.strptime(str, self._strptime_format)
+
+
+class KnessetDataServiceDateTimeField(BaseKnessetDataServiceField):
+
+    DEPENDS_ON_OBJ_FIELDS = True
+
+    def __init__(self, date_attr_name, time_attr_name):
+        self._date_attr_name = date_attr_name
+        self._time_attr_name = time_attr_name
+
+    def set_value(self, obj, attr_name, entry):
+        value = datetime.datetime.combine(getattr(obj, self._date_attr_name).date(), getattr(obj, self._time_attr_name).time())
+        setattr(obj, attr_name, value)
 
 
 class BaseKnessetDataServiceObject(object):
@@ -124,4 +153,8 @@ class BaseKnessetDataServiceObject(object):
     def __init__(self, entry):
         self._entry = entry
         for attr_name, field in self.FIELDS.iteritems():
-            setattr(self, attr_name, field.get_value(entry))
+            if not field.DEPENDS_ON_OBJ_FIELDS:
+                field.set_value(self, attr_name, entry)
+        for attr_name, field in self.FIELDS.iteritems():
+            if field.DEPENDS_ON_OBJ_FIELDS:
+                field.set_value(self, attr_name, entry)
