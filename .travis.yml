@@ -5,5 +5,4 @@ install:
   - pip install --upgrade pip
   - pip install python/
 script:
-  - cd python/
-  - bin/run_tests.sh
+  - cd python/ && bin/run_tests.sh
