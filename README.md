@@ -1,5 +1,5 @@
 # knesset-data
-APIs and documentation to allow getting data from the Israeli Parliament (Knesset)
+APIs and documentation to allow getting data from the Israeli Parliament (Knesset).
 
 The preferred source of the data are the [official Knesset APIs](http://online.knesset.gov.il/WsinternetSps/KnessetDataService/) - however, not all data is available from them so we might also provide APIs that scrape the Knesset website.
 
