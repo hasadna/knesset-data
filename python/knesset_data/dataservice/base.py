@@ -60,10 +60,6 @@ class BaseKnessetDataServiceObject(object):
     METHOD_NAME = None
     DEFAULT_ORDER_BY_FIELD = None
 
-    FIELDS = {
-        # mapping of (output object field name : knesset field)
-    }
-
     @classmethod
     def _get_service_name(cls):
         return cls.SERVICE_NAME
@@ -142,7 +138,7 @@ class BaseKnessetDataServiceObject(object):
             order_by = (cls.DEFAULT_ORDER_BY_FIELD, 'desc')
         if order_by:
             order_by_field, order_by_dir = order_by
-            order_by_field = cls.FIELDS[order_by_field].get_order_by_field()
+            order_by_field = cls.get_field(order_by_field).get_order_by_field()
             order_by = order_by_field, order_by_dir
         soup = cls._get_soup(cls._get_url_page(order_by, results_per_page, page_num))
         if len(soup.feed.find_all('link', attrs={'rel':'next'})) > 0:
@@ -150,11 +146,24 @@ class BaseKnessetDataServiceObject(object):
         else:
             return [cls(cls._parse_entry(entry)) for entry in soup.feed.find_all('entry')]
 
+    @classmethod
+    def get_fields(cls):
+        if not hasattr(cls, '_fields'):
+            cls._fields = {
+                attr_name:getattr(cls, attr_name) for attr_name in dir(cls) if isinstance(getattr(cls, attr_name, None), BaseKnessetDataServiceField)
+            }
+        return cls._fields
+
+    @classmethod
+    def get_field(cls, name=None):
+        fields = cls.get_fields()
+        return fields[name]
+
     def __init__(self, entry):
         self._entry = entry
-        for attr_name, field in self.FIELDS.iteritems():
+        for attr_name, field in self.get_fields().iteritems():
             if not field.DEPENDS_ON_OBJ_FIELDS:
                 field.set_value(self, attr_name, entry)
-        for attr_name, field in self.FIELDS.iteritems():
+        for attr_name, field in self.get_fields().iteritems():
             if field.DEPENDS_ON_OBJ_FIELDS:
                 field.set_value(self, attr_name, entry)
