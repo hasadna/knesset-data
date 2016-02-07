@@ -1,4 +1,4 @@
-from base import BaseKnessetDataServiceObject, KnessetDataServiceSimpleField, KnessetDataServiceStrptimeField, KnessetDataServiceDateTimeField
+from base import BaseKnessetDataServiceCollectionObject, KnessetDataServiceSimpleField, KnessetDataServiceStrptimeField, KnessetDataServiceDateTimeField
 import datetime
 
 
@@ -10,9 +10,9 @@ class VoteTimeField(KnessetDataServiceStrptimeField):
         return datetime.datetime.strptime(str, self._strptime_format)
 
 
-class Vote(BaseKnessetDataServiceObject):
+class Vote(BaseKnessetDataServiceCollectionObject):
 
-    SERVICE_NAME = "VotesData"
+    SERVICE_NAME = "votes"
     METHOD_NAME = "View_vote_rslts_hdr_Approved"
     DEFAULT_ORDER_BY_FIELD = "date"
 

@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup, Tag
 import urllib2
 import datetime
+from knesset_data.dataservice.constants import SERVICE_URLS
+from requests import Request
 
 
 class BaseKnessetDataServiceField(object):
@@ -58,7 +60,6 @@ class BaseKnessetDataServiceObject(object):
 
     SERVICE_NAME = None
     METHOD_NAME = None
-    DEFAULT_ORDER_BY_FIELD = None
 
     @classmethod
     def _get_service_name(cls):
@@ -70,10 +71,55 @@ class BaseKnessetDataServiceObject(object):
 
     @classmethod
     def _get_url_base(cls):
-        return u"http://online.knesset.gov.il/WsinternetSps/KnessetDataService/{service_name}.svc/{method_name}".format(
-            service_name=cls._get_service_name(),
-            method_name=cls._get_method_name()
-        )
+        return SERVICE_URLS[cls._get_service_name()]+'/'+cls._get_method_name()
+
+    @classmethod
+    def _get_soup(cls, url):
+        return BeautifulSoup(urllib2.urlopen(url).read(), 'html.parser')
+
+    @classmethod
+    def _handle_prop(cls, prop_type, prop_null, prop):
+        if prop_null:
+            return None
+        elif prop_type == '':
+            return prop.string
+        elif prop_type in ('Edm.Int32', 'Edm.Int16', 'Edm.Byte', 'Edm.Int64'):
+            return int(prop.string)
+        elif prop_type == 'Edm.Decimal':
+            return float(prop.string)
+        elif prop_type == 'Edm.DateTime':
+            return datetime.datetime.strptime(prop.string, "%Y-%m-%dT%H:%M:%S")
+        elif prop_type == 'Edm.Boolean':
+            return prop.string == 'true'
+        else:
+            raise Exception('unknown prop type: %s'%prop_type)
+
+    @classmethod
+    def get_fields(cls):
+        if not hasattr(cls, '_fields'):
+            cls._fields = {
+                attr_name:getattr(cls, attr_name) for attr_name in dir(cls) if isinstance(getattr(cls, attr_name, None), BaseKnessetDataServiceField)
+            }
+        return cls._fields
+
+    @classmethod
+    def get_field(cls, name=None):
+        fields = cls.get_fields()
+        return fields[name]
+
+    def __init__(self, entry):
+        self._entry = entry
+        for attr_name, field in self.get_fields().iteritems():
+            if not field.DEPENDS_ON_OBJ_FIELDS:
+                field.set_value(self, attr_name, entry)
+        for attr_name, field in self.get_fields().iteritems():
+            if field.DEPENDS_ON_OBJ_FIELDS:
+                field.set_value(self, attr_name, entry)
+
+
+class BaseKnessetDataServiceCollectionObject(BaseKnessetDataServiceObject):
+
+    DEFAULT_ORDER_BY_FIELD = None
 
     @classmethod
     def _get_url_single(cls, id):
@@ -93,10 +139,6 @@ class BaseKnessetDataServiceObject(object):
         return url
 
     @classmethod
-    def _get_soup(cls, url):
-        return BeautifulSoup(urllib2.urlopen(url).read(), 'html.parser')
-
-    @classmethod
     def _parse_entry(cls, entry):
         entry_id = entry.id.string
         entry_links = []
@@ -108,19 +150,7 @@ class BaseKnessetDataServiceObject(object):
                 prop_tagtype, prop_name = prop.name.split(':')
                 prop_type = prop.attrs.get('m:type', '')
                 prop_null = (prop.attrs.get('m:null', '') == 'true')
-                if prop_null:
-                    prop_val = None
-                elif prop_type == '':
-                    prop_val = prop.string
-                elif prop_type in ('Edm.Int32', 'Edm.Int16', 'Edm.Byte'):
-                    prop_val = int(prop.string)
-                elif prop_type == 'Edm.Decimal':
-                    prop_val = float(prop.string)
-                elif prop_type == 'Edm.DateTime':
-                    prop_val = datetime.datetime.strptime(prop.string, "%Y-%m-%dT%H:%M:%S")
-                else:
-                    raise Exception('unknown prop type: %s'%prop_type)
-                data[prop_name] = prop_val
+                data[prop_name] = cls._handle_prop(prop_type, prop_null, prop)
         return {
             'id': entry_id,
             'links': entry_links,
@@ -146,24 +176,27 @@ class BaseKnessetDataServiceObject(object):
         else:
             return [cls(cls._parse_entry(entry)) for entry in soup.feed.find_all('entry')]
 
-    @classmethod
-    def get_fields(cls):
-        if not hasattr(cls, '_fields'):
-            cls._fields = {
-                attr_name:getattr(cls, attr_name) for attr_name in dir(cls) if isinstance(getattr(cls, attr_name, None), BaseKnessetDataServiceField)
-            }
-        return cls._fields
+
+class BaseKnessetDataServiceFunctionObject(BaseKnessetDataServiceObject):
 
     @classmethod
-    def get_field(cls, name=None):
-        fields = cls.get_fields()
-        return fields[name]
+    def _get_url(cls, params):
+        return Request('GET', cls._get_url_base(), params=params).prepare().url
 
-    def __init__(self, entry):
-        self._entry = entry
-        for attr_name, field in self.get_fields().iteritems():
-            if not field.DEPENDS_ON_OBJ_FIELDS:
-                field.set_value(self, attr_name, entry)
-        for attr_name, field in self.get_fields().iteritems():
-            if field.DEPENDS_ON_OBJ_FIELDS:
-                field.set_value(self, attr_name, entry)
+    @classmethod
+    def _parse_element(cls, element):
+        data = {}
+        for child in element.children:
+            if isinstance(child, Tag):
+                name = child.name
+                ptype = child.attrs.get('p2:type', '')
+                pnull = (child.attrs.get('p2:null', '') == 'true')
+                data[name] = cls._handle_prop(ptype, pnull, child)
+        return {
+            'data': data
+        }
+
+    @classmethod
+    def get(cls, params):
+        soup = cls._get_soup(cls._get_url(params))
+        return [cls(cls._parse_element(element)) for element in soup.find_all('element')]

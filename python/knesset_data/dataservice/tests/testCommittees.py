@@ -11,7 +11,5 @@ class TestCommittees(unittest.TestCase):
         self.assertEqual(committee.name, committees[0].name)
 
     def test_committee_meeting(self):
-        meeting = CommitteeMeeting.get(53)
-        meetings = CommitteeMeeting.get_page()
-        self.assertTrue(isinstance(meeting.datetime, datetime))
-        self.assertTrue(isinstance(meetings[5].datetime, datetime))
+        meetings = CommitteeMeeting.get(1, datetime(2016, 1, 1), datetime(2016, 1, 5))
+        self.assertTrue(isinstance(meetings[0].datetime, datetime))

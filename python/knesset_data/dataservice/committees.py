@@ -1,9 +1,12 @@
-from base import BaseKnessetDataServiceObject, KnessetDataServiceSimpleField, KnessetDataServiceDateTimeField, KnessetDataServiceStrptimeField
+from base import (
+    BaseKnessetDataServiceCollectionObject, BaseKnessetDataServiceFunctionObject,
+    KnessetDataServiceSimpleField, KnessetDataServiceDateTimeField, KnessetDataServiceStrptimeField,
+)
 
 
-class Committee(BaseKnessetDataServiceObject):
+class Committee(BaseKnessetDataServiceCollectionObject):
 
-    SERVICE_NAME = "CommitteeScheduleData"
+    SERVICE_NAME = "committees"
     METHOD_NAME = "View_committee"
     DEFAULT_ORDER_BY_FIELD = "id"
     
@@ -23,27 +26,77 @@ class Committee(BaseKnessetDataServiceObject):
     portal_link = KnessetDataServiceSimpleField('committee_portal_link')
 
 
-class CommitteeMeeting(BaseKnessetDataServiceObject):
+class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
 
-    SERVICE_NAME = "CommitteeScheduleData"
-    METHOD_NAME = "View_protocols"
-    DEFAULT_ORDER_BY_FIELD = "date"
+    SERVICE_NAME = "committees"
+    METHOD_NAME = "CommitteeAgendaSearch"
 
-    id = KnessetDataServiceSimpleField('Protocol_id')
-    committee_id = KnessetDataServiceSimpleField('Committee_id')
-    date = KnessetDataServiceSimpleField('Protocol_date')
-    time = KnessetDataServiceStrptimeField('Protocol_time')
-    datetime = KnessetDataServiceDateTimeField('date', 'time')
-    agendum1 = KnessetDataServiceSimpleField('AGENDUM1')
-    agendum2 = KnessetDataServiceSimpleField('AGENDUM2')
-    agendum3 = KnessetDataServiceSimpleField('AGENDUM3')
-    agendum4 = KnessetDataServiceSimpleField('AGENDUM4')
-    agendum5 = KnessetDataServiceSimpleField('AGENDUM5')
-    agendum6 = KnessetDataServiceSimpleField('AGENDUM6')
-    agendum7 = KnessetDataServiceSimpleField('AGENDUM7')
-    agendum8 = KnessetDataServiceSimpleField('AGENDUM8')
-    nochechim = KnessetDataServiceSimpleField('NOCHECHIM')
-    muzmanim = KnessetDataServiceSimpleField('MUZMANIM')
-    yoetz = KnessetDataServiceSimpleField('YOETZ')
-    menahel = KnessetDataServiceSimpleField('MENAHEL')
-    link = KnessetDataServiceSimpleField('Protocol_link')
+    # the primary key of committee meetings
+    id = KnessetDataServiceSimpleField('Committee_Agenda_id')
+
+    # id of the committee (linked to Committee object)
+    committee_id = KnessetDataServiceSimpleField('Committee_Agenda_committee_id')
+
+    # date/time when the meeting started
+    datetime = KnessetDataServiceSimpleField('committee_agenda_date')
+
+    # title of the meeting
+    title = KnessetDataServiceSimpleField('title')
+
+    # url to download the protocol
+    url = KnessetDataServiceSimpleField('url')
+
+    # this seems like a shorter name of the place where meeting took place
+    location = KnessetDataServiceSimpleField('committee_location')
+
+    # this looks like a longer field with the specific details of where the meeting took place
+    place = KnessetDataServiceSimpleField('Committee_Agenda_place')
+
+    # date/time when the meeting ended
+    meeting_stop = KnessetDataServiceSimpleField('meeting_stop')
+
+    ### following fields seem less interesting ###
+    session_content = KnessetDataServiceSimpleField('committee_agenda_session_content')
+    agenda_canceled = KnessetDataServiceSimpleField('Committee_Agenda_canceled')
+    agenda_sub = KnessetDataServiceSimpleField('Committee_agenda_sub')
+    agenda_associated = KnessetDataServiceSimpleField('Committee_agenda_associated')
+    agenda_associated_id = KnessetDataServiceSimpleField('Committee_agenda_associated_id')
+    agenda_special = KnessetDataServiceSimpleField('Committee_agenda_special')
+    agenda_invited1 = KnessetDataServiceSimpleField('Committee_agenda_invited1')
+    agenda_invite = KnessetDataServiceSimpleField('sd2committee_agenda_invite')
+    note = KnessetDataServiceSimpleField('Committee_agenda_note')
+    start_datetime = KnessetDataServiceSimpleField('StartDateTime')
+    topid_id = KnessetDataServiceSimpleField('Topic_ID')
+    creation_date = KnessetDataServiceSimpleField('Date_Creation')
+    streaming_url = KnessetDataServiceSimpleField('streaming_url')
+    meeting_start = KnessetDataServiceSimpleField('meeting_start')
+    is_paused = KnessetDataServiceSimpleField('meeting_is_paused')
+    date_order = KnessetDataServiceSimpleField('committee_date_order')
+    date = KnessetDataServiceSimpleField('committee_date')
+    day = KnessetDataServiceSimpleField('committee_day')
+    month = KnessetDataServiceSimpleField('committee_month')
+    material_id = KnessetDataServiceSimpleField('material_id')
+    material_committee_id = KnessetDataServiceSimpleField('material_comittee_id')
+    material_expiration_date = KnessetDataServiceSimpleField('material_expiration_date')
+    material_hour = KnessetDataServiceSimpleField('committee_material_hour')
+    old_url = KnessetDataServiceSimpleField('OldUrl')
+    background_page_link = KnessetDataServiceSimpleField('CommitteeBackgroundPageLink')
+    agenda_invited = KnessetDataServiceSimpleField('Committee_agenda_invited')
+
+    @classmethod
+    def get(cls, committee_id, from_date, to_date=None):
+        """
+        # example usage:
+        >>> from datetime import datetime
+        # get all meetings of committee 1 from Jan 01, 2016
+        >>> CommitteeMeeting.get(1, datetime(2016, 1, 1))
+        # get all meetings of committee 2 from Feb 01, 2015 to Feb 20, 2015
+        >>> CommitteeMeeting.get(2, datetime(2015, 2, 1), datetime(2015, 2, 20))
+        """
+        params = {
+            "CommitteeId": "'%s'"%committee_id,
+            "FromDate": "'%sT00:00:00'"%from_date.strftime('%Y-%m-%d')
+        }
+        if to_date:
+            params["ToDate"] = "'%sT00:00:00'"%to_date.strftime('%Y-%m-%d')
+        return super(CommitteeMeeting, cls).get(params)
