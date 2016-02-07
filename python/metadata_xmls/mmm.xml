@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="mmmModel" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="View_categories">
+        <Key>
+          <PropertyRef Name="category_id" />
+        </Key>
+        <Property Name="category_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="category_name" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="category_name_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="category_description" Type="Edm.String" Nullable="true" MaxLength="1000" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="CategoryDocumentCategory" Relationship="mmmModel.categories_document_category" FromRole="View_categories" ToRole="View_document_category" />
+      </EntityType>
+      <EntityType Name="View_documents">
+        <Key>
+          <PropertyRef Name="doc_id" />
+        </Key>
+        <Property Name="doc_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="doc_title" Type="Edm.String" Nullable="true" MaxLength="300" Unicode="false" FixedLength="false" />
+        <Property Name="doc_abstract" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="doc_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="doc_title_eng" Type="Edm.String" Nullable="true" MaxLength="300" Unicode="false" FixedLength="false" />
+        <Property Name="doc_abstract_eng" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="doc_link" Type="Edm.String" Nullable="true" MaxLength="59" Unicode="false" FixedLength="false" />
+        <Property Name="doc_link_eng" Type="Edm.String" Nullable="true" MaxLength="59" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="DocumentDocumentCategory" Relationship="mmmModel.documents_document_category" FromRole="View_documents" ToRole="View_document_category" />
+        <NavigationProperty Name="DocumentDocumentKeyword" Relationship="mmmModel.documents_document_keyword" FromRole="View_documents" ToRole="View_document_keyword" />
+        <NavigationProperty Name="DocumentDocumentPeople" Relationship="mmmModel.documents_document_people" FromRole="View_documents" ToRole="View_document_people" />
+        <NavigationProperty Name="DocumentsDocumentClient" Relationship="mmmModel.documents_document_client" FromRole="View_documents" ToRole="View_document_client" />
+      </EntityType>
+      <EntityType Name="View_keywords">
+        <Key>
+          <PropertyRef Name="keyword_id" />
+        </Key>
+        <Property Name="keyword_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="keyword_name" Type="Edm.String" Nullable="true" MaxLength="25" Unicode="false" FixedLength="false" />
+        <Property Name="keyword_name_eng" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="KeywordDocumentKeyword" Relationship="mmmModel.keywords_document_keyword" FromRole="View_keywords" ToRole="View_document_keyword" />
+      </EntityType>
+      <EntityType Name="View_people">
+        <Key>
+          <PropertyRef Name="people_id" />
+        </Key>
+        <Property Name="people_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="people_lname" Type="Edm.String" Nullable="true" MaxLength="25" Unicode="false" FixedLength="false" />
+        <Property Name="people_fname" Type="Edm.String" Nullable="true" MaxLength="25" Unicode="false" FixedLength="false" />
+        <Property Name="people_lname_eng" Type="Edm.String" Nullable="true" MaxLength="25" Unicode="false" FixedLength="false" />
+        <Property Name="people_fname_eng" Type="Edm.String" Nullable="true" MaxLength="25" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="PeopleDocumentPeople" Relationship="mmmModel.people_document_people" FromRole="View_people" ToRole="View_document_people" />
+      </EntityType>
+      <EntityType Name="View_document_category">
+        <Key>
+          <PropertyRef Name="doc_cat_category_id" />
+          <PropertyRef Name="doc_cat_document_id" />
+        </Key>
+        <Property Name="doc_cat_category_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="doc_cat_document_id" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="Document" Relationship="mmmModel.documents_document_category" FromRole="View_document_category" ToRole="View_documents" />
+        <NavigationProperty Name="Category" Relationship="mmmModel.categories_document_category" FromRole="View_document_category" ToRole="View_categories" />
+      </EntityType>
+      <EntityType Name="View_document_keyword">
+        <Key>
+          <PropertyRef Name="doc_key_document_id" />
+          <PropertyRef Name="doc_key_keyword_id" />
+        </Key>
+        <Property Name="doc_key_document_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="doc_key_keyword_id" Type="Edm.Int16" Nullable="false" />
+        <NavigationProperty Name="Document" Relationship="mmmModel.documents_document_keyword" FromRole="View_document_keyword" ToRole="View_documents" />
+        <NavigationProperty Name="Keyword" Relationship="mmmModel.keywords_document_keyword" FromRole="View_document_keyword" ToRole="View_keywords" />
+      </EntityType>
+      <EntityType Name="View_document_people">
+        <Key>
+          <PropertyRef Name="doc_people_document_id" />
+          <PropertyRef Name="doc_people_people_id" />
+        </Key>
+        <Property Name="doc_people_document_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="doc_people_people_id" Type="Edm.Int16" Nullable="false" />
+        <NavigationProperty Name="Document" Relationship="mmmModel.documents_document_people" FromRole="View_document_people" ToRole="View_documents" />
+        <NavigationProperty Name="People" Relationship="mmmModel.people_document_people" FromRole="View_document_people" ToRole="View_people" />
+      </EntityType>
+      <EntityType Name="View_clienttypes">
+        <Key>
+          <PropertyRef Name="clienttypes_id" />
+        </Key>
+        <Property Name="clienttypes_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="clienttypes_name" Type="Edm.String" Nullable="true" MaxLength="25" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="ClientTypesDocumentClient" Relationship="mmmModel.clienttypes_document_client" FromRole="View_clienttypes" ToRole="View_document_client" />
+      </EntityType>
+      <EntityType Name="View_document_client">
+        <Key>
+          <PropertyRef Name="document_client_id" />
+        </Key>
+        <Property Name="document_client_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="doc_client_document_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="doc_client_clienttype_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="doc_client_committee_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="doc_client_mk_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="doc_other_client_id" Type="Edm.Byte" Nullable="true" />
+        <NavigationProperty Name="Document" Relationship="mmmModel.documents_document_client" FromRole="View_document_client" ToRole="View_documents" />
+        <NavigationProperty Name="ClientTypes" Relationship="mmmModel.clienttypes_document_client" FromRole="View_document_client" ToRole="View_clienttypes" />
+        <NavigationProperty Name="OtherTypes" Relationship="mmmModel.other_clients_document_client" FromRole="View_document_client" ToRole="View_other_clients" />
+        <NavigationProperty Name="CommitteeCommittee" Relationship="mmmModel.committee_committee_document_client" FromRole="View_document_client" ToRole="View_committee_committee" />
+        <NavigationProperty Name="MKNewMKIndividual" Relationship="mmmModel.mk_new_mk_individual_document_client" FromRole="View_document_client" ToRole="View_mk_new_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_other_clients">
+        <Key>
+          <PropertyRef Name="other_client_id" />
+        </Key>
+        <Property Name="other_client_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="other_client_name" Type="Edm.String" Nullable="true" MaxLength="70" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="OtherTypeDocumentClient" Relationship="mmmModel.other_clients_document_client" FromRole="View_other_clients" ToRole="View_document_client" />
+      </EntityType>
+      <EntityType Name="View_committee_committee">
+        <Key>
+          <PropertyRef Name="committee_id" />
+        </Key>
+        <Property Name="committee_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="committee_type_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="committee_parent_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="committee_name" Type="Edm.String" Nullable="true" MaxLength="150" Unicode="false" FixedLength="false" />
+        <Property Name="committee_name_eng" Type="Edm.String" Nullable="true" MaxLength="150" Unicode="false" FixedLength="false" />
+        <Property Name="committee_name_arb" Type="Edm.String" Nullable="true" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="committee_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="committee_end_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="committee_desc" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="committee_desc_eng" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="committee_desc_arb" Type="Edm.Int32" Nullable="true" />
+        <Property Name="committee_note" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="committee_note_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="committee_portal_link" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="CommitteeDocumentClient" Relationship="mmmModel.committee_committee_document_client" FromRole="View_committee_committee" ToRole="View_document_client" />
+      </EntityType>
+      <EntityType Name="View_mk_new_mk_individual">
+        <Key>
+          <PropertyRef Name="mk_individual_id" />
+        </Key>
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="army_rank_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="army_history_desc" Type="Edm.String" Nullable="true" MaxLength="3000" Unicode="false" FixedLength="false" />
+        <Property Name="army_history_desc_eng" Type="Edm.String" Nullable="true" MaxLength="1800" Unicode="false" FixedLength="false" />
+        <Property Name="country_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="country_desc" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="country_desc_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="minority_type_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="education_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="education_desc" Type="Edm.String" Nullable="true" MaxLength="400" Unicode="false" FixedLength="false" />
+        <Property Name="education_desc_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="marital_status_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="city_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="mk_status_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="mk_individual_name" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_name_eng" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_first_name" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_first_name_eng" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_gender" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="mk_individual_birth_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_individual_immigration_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_individual_children_number" Type="Edm.Byte" Nullable="true" />
+        <Property Name="mk_individual_death_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_individual_email" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_email_on" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="mk_individual_photo" Type="Edm.String" Nullable="true" MaxLength="69" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_phone1" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_phone2" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_phone_fax" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_present" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="mk_individual_public_activity" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_public_activity_eng" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_note" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_note_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="MKIndividualDocumentClient" Relationship="mmmModel.mk_new_mk_individual_document_client" FromRole="View_mk_new_mk_individual" ToRole="View_document_client" />
+      </EntityType>
+      <Association Name="documents_document_category">
+        <End Role="View_documents" Type="mmmModel.View_documents" Multiplicity="1" />
+        <End Role="View_document_category" Type="mmmModel.View_document_category" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_documents">
+            <PropertyRef Name="doc_id" />
+          </Principal>
+          <Dependent Role="View_document_category">
+            <PropertyRef Name="doc_cat_document_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="categories_document_category">
+        <End Role="View_categories" Type="mmmModel.View_categories" Multiplicity="1" />
+        <End Role="View_document_category" Type="mmmModel.View_document_category" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_categories">
+            <PropertyRef Name="category_id" />
+          </Principal>
+          <Dependent Role="View_document_category">
+            <PropertyRef Name="doc_cat_category_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="documents_document_keyword">
+        <End Role="View_documents" Type="mmmModel.View_documents" Multiplicity="1" />
+        <End Role="View_document_keyword" Type="mmmModel.View_document_keyword" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_documents">
+            <PropertyRef Name="doc_id" />
+          </Principal>
+          <Dependent Role="View_document_keyword">
+            <PropertyRef Name="doc_key_document_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="keywords_document_keyword">
+        <End Role="View_keywords" Type="mmmModel.View_keywords" Multiplicity="1" />
+        <End Role="View_document_keyword" Type="mmmModel.View_document_keyword" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_keywords">
+            <PropertyRef Name="keyword_id" />
+          </Principal>
+          <Dependent Role="View_document_keyword">
+            <PropertyRef Name="doc_key_keyword_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="documents_document_people">
+        <End Role="View_documents" Type="mmmModel.View_documents" Multiplicity="1" />
+        <End Role="View_document_people" Type="mmmModel.View_document_people" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_documents">
+            <PropertyRef Name="doc_id" />
+          </Principal>
+          <Dependent Role="View_document_people">
+            <PropertyRef Name="doc_people_document_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="people_document_people">
+        <End Role="View_people" Type="mmmModel.View_people" Multiplicity="1" />
+        <End Role="View_document_people" Type="mmmModel.View_document_people" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_people">
+            <PropertyRef Name="people_id" />
+          </Principal>
+          <Dependent Role="View_document_people">
+            <PropertyRef Name="doc_people_people_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="documents_document_client">
+        <End Role="View_documents" Type="mmmModel.View_documents" Multiplicity="0..1" />
+        <End Role="View_document_client" Type="mmmModel.View_document_client" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_documents">
+            <PropertyRef Name="doc_id" />
+          </Principal>
+          <Dependent Role="View_document_client">
+            <PropertyRef Name="doc_client_document_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="clienttypes_document_client">
+        <End Role="View_clienttypes" Type="mmmModel.View_clienttypes" Multiplicity="0..1" />
+        <End Role="View_document_client" Type="mmmModel.View_document_client" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_clienttypes">
+            <PropertyRef Name="clienttypes_id" />
+          </Principal>
+          <Dependent Role="View_document_client">
+            <PropertyRef Name="doc_client_clienttype_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="other_clients_document_client">
+        <End Role="View_other_clients" Type="mmmModel.View_other_clients" Multiplicity="0..1" />
+        <End Role="View_document_client" Type="mmmModel.View_document_client" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_other_clients">
+            <PropertyRef Name="other_client_id" />
+          </Principal>
+          <Dependent Role="View_document_client">
+            <PropertyRef Name="doc_other_client_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="committee_committee_document_client">
+        <End Role="View_committee_committee" Type="mmmModel.View_committee_committee" Multiplicity="0..1" />
+        <End Role="View_document_client" Type="mmmModel.View_document_client" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_committee_committee">
+            <PropertyRef Name="committee_id" />
+          </Principal>
+          <Dependent Role="View_document_client">
+            <PropertyRef Name="doc_client_committee_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="mk_new_mk_individual_document_client">
+        <End Role="View_mk_new_mk_individual" Type="mmmModel.View_mk_new_mk_individual" Multiplicity="0..1" />
+        <End Role="View_document_client" Type="mmmModel.View_document_client" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_new_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_document_client">
+            <PropertyRef Name="doc_client_mk_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="Models" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="mmmEntities" p7:LazyLoadingEnabled="true" m:IsDefaultEntityContainer="true" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="View_categories" EntityType="mmmModel.View_categories" />
+        <EntitySet Name="View_documents" EntityType="mmmModel.View_documents" />
+        <EntitySet Name="View_keywords" EntityType="mmmModel.View_keywords" />
+        <EntitySet Name="View_people" EntityType="mmmModel.View_people" />
+        <EntitySet Name="View_document_category" EntityType="mmmModel.View_document_category" />
+        <EntitySet Name="View_document_keyword" EntityType="mmmModel.View_document_keyword" />
+        <EntitySet Name="View_document_people" EntityType="mmmModel.View_document_people" />
+        <EntitySet Name="View_clienttypes" EntityType="mmmModel.View_clienttypes" />
+        <EntitySet Name="View_document_client" EntityType="mmmModel.View_document_client" />
+        <EntitySet Name="View_other_clients" EntityType="mmmModel.View_other_clients" />
+        <EntitySet Name="View_committee_committee" EntityType="mmmModel.View_committee_committee" />
+        <EntitySet Name="View_mk_new_mk_individual" EntityType="mmmModel.View_mk_new_mk_individual" />
+        <AssociationSet Name="documents_document_category" Association="mmmModel.documents_document_category">
+          <End Role="View_documents" EntitySet="View_documents" />
+          <End Role="View_document_category" EntitySet="View_document_category" />
+        </AssociationSet>
+        <AssociationSet Name="categories_document_category" Association="mmmModel.categories_document_category">
+          <End Role="View_categories" EntitySet="View_categories" />
+          <End Role="View_document_category" EntitySet="View_document_category" />
+        </AssociationSet>
+        <AssociationSet Name="documents_document_keyword" Association="mmmModel.documents_document_keyword">
+          <End Role="View_documents" EntitySet="View_documents" />
+          <End Role="View_document_keyword" EntitySet="View_document_keyword" />
+        </AssociationSet>
+        <AssociationSet Name="keywords_document_keyword" Association="mmmModel.keywords_document_keyword">
+          <End Role="View_keywords" EntitySet="View_keywords" />
+          <End Role="View_document_keyword" EntitySet="View_document_keyword" />
+        </AssociationSet>
+        <AssociationSet Name="documents_document_people" Association="mmmModel.documents_document_people">
+          <End Role="View_documents" EntitySet="View_documents" />
+          <End Role="View_document_people" EntitySet="View_document_people" />
+        </AssociationSet>
+        <AssociationSet Name="people_document_people" Association="mmmModel.people_document_people">
+          <End Role="View_people" EntitySet="View_people" />
+          <End Role="View_document_people" EntitySet="View_document_people" />
+        </AssociationSet>
+        <AssociationSet Name="documents_document_client" Association="mmmModel.documents_document_client">
+          <End Role="View_documents" EntitySet="View_documents" />
+          <End Role="View_document_client" EntitySet="View_document_client" />
+        </AssociationSet>
+        <AssociationSet Name="clienttypes_document_client" Association="mmmModel.clienttypes_document_client">
+          <End Role="View_clienttypes" EntitySet="View_clienttypes" />
+          <End Role="View_document_client" EntitySet="View_document_client" />
+        </AssociationSet>
+        <AssociationSet Name="other_clients_document_client" Association="mmmModel.other_clients_document_client">
+          <End Role="View_other_clients" EntitySet="View_other_clients" />
+          <End Role="View_document_client" EntitySet="View_document_client" />
+        </AssociationSet>
+        <AssociationSet Name="committee_committee_document_client" Association="mmmModel.committee_committee_document_client">
+          <End Role="View_committee_committee" EntitySet="View_committee_committee" />
+          <End Role="View_document_client" EntitySet="View_document_client" />
+        </AssociationSet>
+        <AssociationSet Name="mk_new_mk_individual_document_client" Association="mmmModel.mk_new_mk_individual_document_client">
+          <End Role="View_mk_new_mk_individual" EntitySet="View_mk_new_mk_individual" />
+          <End Role="View_document_client" EntitySet="View_document_client" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

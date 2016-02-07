@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="billModel" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="View_bill">
+        <Key>
+          <PropertyRef Name="Bill_id" />
+        </Key>
+        <Property Name="Bill_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bill_number" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Bill_name" Type="Edm.String" Nullable="true" MaxLength="1024" Unicode="false" FixedLength="false" />
+        <Property Name="Bill_sub_number" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Bill_type_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Bill_file_link" Type="Edm.String" Nullable="true" MaxLength="116" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="bill_type" Relationship="billModel.View_Bill_type_bill" FromRole="View_bill" ToRole="View_Bill_type" />
+      </EntityType>
+      <EntityType Name="View_Bill_type">
+        <Key>
+          <PropertyRef Name="Bill_type_id" />
+        </Key>
+        <Property Name="Bill_type_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Bill_Type_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="Bill_Type_desc" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="bill" Relationship="billModel.View_Bill_type_bill" FromRole="View_Bill_type" ToRole="View_bill" />
+      </EntityType>
+      <Association Name="View_Bill_type_bill">
+        <End Role="View_Bill_type" Type="billModel.View_Bill_type" Multiplicity="0..1" />
+        <End Role="View_bill" Type="billModel.View_bill" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_Bill_type">
+            <PropertyRef Name="Bill_type_id" />
+          </Principal>
+          <Dependent Role="View_bill">
+            <PropertyRef Name="Bill_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="Models" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="Bills" p7:LazyLoadingEnabled="true" m:IsDefaultEntityContainer="true" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="View_bill" EntityType="billModel.View_bill" />
+        <EntitySet Name="View_Bill_type" EntityType="billModel.View_Bill_type" />
+        <AssociationSet Name="View_Bill_type_bill" Association="billModel.View_Bill_type_bill">
+          <End Role="View_Bill_type" EntitySet="View_Bill_type" />
+          <End Role="View_bill" EntitySet="View_bill" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

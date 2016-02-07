@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="mk_newModel" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="View_faction_government">
+        <Key>
+          <PropertyRef Name="faction_government_id" />
+        </Key>
+        <Property Name="faction_government_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="faction_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="government_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="faction_government_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="faction_government_end_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="faction_government_no_minister" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="faction_government_only_deputy_ministers" Type="Edm.Boolean" Nullable="true" />
+        <NavigationProperty Name="faction_government_to_government" Relationship="mk_newModel.View_governmentView_faction_government" FromRole="View_faction_government" ToRole="View_government" />
+        <NavigationProperty Name="faction_government_to_faction" Relationship="mk_newModel.View_t_factionView_faction_government" FromRole="View_faction_government" ToRole="View_t_faction" />
+      </EntityType>
+      <EntityType Name="View_faction_knesset">
+        <Key>
+          <PropertyRef Name="faction_knesset_id" />
+        </Key>
+        <Property Name="faction_knesset_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="faction_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="knesset_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="faction_knesset_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="faction_knesset_end_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="faction_knesset_minor_move" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="faction_knesset_phone1" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_phone2" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_fax" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_note" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_note_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_manager_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_manager_gender" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="faction_knesset_secretary_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_secretary_gender" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="faction_knesset_speaker_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_speaker_gender" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="faction_knesset_coordinator_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="faction_knesset_coordinator_gender" Type="Edm.Boolean" Nullable="true" />
+        <NavigationProperty Name="faction_knesset_to_faction" Relationship="mk_newModel.View_t_factionView_faction_knesset" FromRole="View_faction_knesset" ToRole="View_t_faction" />
+      </EntityType>
+      <EntityType Name="View_family_relation">
+        <Key>
+          <PropertyRef Name="family_relation_id" />
+        </Key>
+        <Property Name="family_relation_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="family_relation_type_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="family_relation_mk_older_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="family_relation_mk_younger_id" Type="Edm.Int32" Nullable="true" />
+        <NavigationProperty Name="family_relation_to_mk_individual" Relationship="mk_newModel.mk_individual_family_relation" FromRole="View_family_relation" ToRole="View_mk_individual" />
+        <NavigationProperty Name="family_relation_to_family_relation_type" Relationship="mk_newModel.t_family_relation_type_family_relation" FromRole="View_family_relation" ToRole="View_t_family_relation_type" />
+      </EntityType>
+      <EntityType Name="View_government">
+        <Key>
+          <PropertyRef Name="government_id" />
+        </Key>
+        <Property Name="government_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="knesset_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="government_number" Type="Edm.Byte" Nullable="true" />
+        <Property Name="government_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="government_end_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="government_guidelines_link" Type="Edm.String" Nullable="true" MaxLength="70" Unicode="false" FixedLength="false" />
+        <Property Name="government_coalition_link" Type="Edm.String" Nullable="true" MaxLength="70" Unicode="false" FixedLength="false" />
+        <Property Name="government_caption3_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_caption3" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_picture3" Type="Edm.String" Nullable="true" MaxLength="20" Unicode="false" FixedLength="false" />
+        <Property Name="government_caption2_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_caption2" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_picture2" Type="Edm.String" Nullable="true" MaxLength="20" Unicode="false" FixedLength="false" />
+        <Property Name="government_caption1_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_caption1" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_picture1" Type="Edm.String" Nullable="true" MaxLength="20" Unicode="false" FixedLength="false" />
+        <Property Name="government_note" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="government_note_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="government_to_government_role" Relationship="mk_newModel.View_governmentView_government_role" FromRole="View_government" ToRole="View_government_role" />
+        <NavigationProperty Name="government_to_faction_government" Relationship="mk_newModel.View_governmentView_faction_government" FromRole="View_government" ToRole="View_faction_government" />
+      </EntityType>
+      <EntityType Name="View_government_role">
+        <Key>
+          <PropertyRef Name="government_role_id" />
+        </Key>
+        <Property Name="government_role_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="government_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="government_role_type_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="ministry_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="government_role_name_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="government_role_name" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="government_role_name_female" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="government_role_to_government_history" Relationship="mk_newModel.View_government_roleView_mk_government_history" FromRole="View_government_role" ToRole="View_mk_government_history" />
+        <NavigationProperty Name="government_role_to_government_role_type" Relationship="mk_newModel.View_t_government_role_typeView_government_role" FromRole="View_government_role" ToRole="View_t_government_role_type" />
+        <NavigationProperty Name="government_role_to_ministry" Relationship="mk_newModel.View_t_ministryView_government_role" FromRole="View_government_role" ToRole="View_t_ministry" />
+        <NavigationProperty Name="government_role_to_government" Relationship="mk_newModel.View_governmentView_government_role" FromRole="View_government_role" ToRole="View_government" />
+      </EntityType>
+      <EntityType Name="View_knesset_role">
+        <Key>
+          <PropertyRef Name="knesset_role_id" />
+        </Key>
+        <Property Name="knesset_role_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="knesset_role_type_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="committee_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="lobby_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="faction_id" Type="Edm.Int16" Nullable="true" />
+        <NavigationProperty Name="knesset_role_to_knesset_role_history" Relationship="mk_newModel.View_knesset_roleView_mk_knesset_role_history" FromRole="View_knesset_role" ToRole="View_mk_knesset_role_history" />
+        <NavigationProperty Name="knesset_role_to_lobby" Relationship="mk_newModel.View_t_lobbyView_knesset_role" FromRole="View_knesset_role" ToRole="View_t_lobby" />
+        <NavigationProperty Name="knesset_role_to_knesset_role_type" Relationship="mk_newModel.View_t_knesset_role_typeView_knesset_role" FromRole="View_knesset_role" ToRole="View_t_knesset_role_type" />
+        <NavigationProperty Name="knesset_role_to_faction" Relationship="mk_newModel.View_t_factionView_knesset_role" FromRole="View_knesset_role" ToRole="View_t_faction" />
+      </EntityType>
+      <EntityType Name="View_mk_budget">
+        <Key>
+          <PropertyRef Name="mk_budget_id" />
+        </Key>
+        <Property Name="mk_budget_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_budget_cost" Type="Edm.Decimal" Nullable="true" Precision="19" Scale="4" />
+        <Property Name="mk_budget_fiscal_year" Type="Edm.DateTime" Nullable="true" />
+        <NavigationProperty Name="budget_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_budget" FromRole="View_mk_budget" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_mk_expense">
+        <Key>
+          <PropertyRef Name="mk_expense_id" />
+        </Key>
+        <Property Name="mk_expense_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="mk_expense_desc" Type="Edm.String" Nullable="true" MaxLength="255" Unicode="true" FixedLength="false" />
+        <Property Name="mk_expense_cost" Type="Edm.Decimal" Nullable="true" Precision="19" Scale="4" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_expense_fiscal_year" Type="Edm.DateTime" Nullable="true" />
+        <NavigationProperty Name="expense_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_expense" FromRole="View_mk_expense" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_mk_faction_history">
+        <Key>
+          <PropertyRef Name="mk_faction_history_id" />
+        </Key>
+        <Property Name="mk_faction_history_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="faction_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="knesset_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="mk_faction_history_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_faction_history_end_date" Type="Edm.DateTime" Nullable="true" />
+        <NavigationProperty Name="faction_history_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_faction_history" FromRole="View_mk_faction_history" ToRole="View_mk_individual" />
+        <NavigationProperty Name="mk_faction_history_to_faction" Relationship="mk_newModel.View_t_factionView_mk_faction_history" FromRole="View_mk_faction_history" ToRole="View_t_faction" />
+      </EntityType>
+      <EntityType Name="View_mk_government_history">
+        <Key>
+          <PropertyRef Name="mk_gov_hist_id" />
+        </Key>
+        <Property Name="mk_gov_hist_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="government_role_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_gov_hist_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_gov_hist_end_date" Type="Edm.DateTime" Nullable="true" />
+        <NavigationProperty Name="mk_government_history_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_government_history" FromRole="View_mk_government_history" ToRole="View_mk_individual" />
+        <NavigationProperty Name="government_history_to_government_role" Relationship="mk_newModel.View_government_roleView_mk_government_history" FromRole="View_mk_government_history" ToRole="View_government_role" />
+      </EntityType>
+      <EntityType Name="View_mk_individual">
+        <Key>
+          <PropertyRef Name="mk_individual_id" />
+        </Key>
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="army_rank_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="army_history_desc" Type="Edm.String" Nullable="true" MaxLength="3000" Unicode="false" FixedLength="false" />
+        <Property Name="army_history_desc_eng" Type="Edm.String" Nullable="true" MaxLength="1800" Unicode="false" FixedLength="false" />
+        <Property Name="country_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="country_desc" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="country_desc_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="minority_type_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="education_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="education_desc" Type="Edm.String" Nullable="true" MaxLength="400" Unicode="false" FixedLength="false" />
+        <Property Name="education_desc_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="marital_status_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="city_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="mk_status_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="mk_individual_name" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_name_eng" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_first_name" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_first_name_eng" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_gender" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="mk_individual_birth_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_individual_immigration_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_individual_children_number" Type="Edm.Byte" Nullable="true" />
+        <Property Name="mk_individual_death_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_individual_email" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_email_on" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="mk_individual_photo" Type="Edm.String" Nullable="true" MaxLength="69" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_phone1" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_phone2" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_phone_fax" Type="Edm.String" Nullable="true" MaxLength="15" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_present" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="mk_individual_public_activity" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_public_activity_eng" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_note" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="mk_individual_note_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="mk_individual_to_t_city" Relationship="mk_newModel.t_city_mk_individual" FromRole="View_mk_individual" ToRole="View_t_city" />
+        <NavigationProperty Name="mk_individual_to_martial_status" Relationship="mk_newModel.View_t_marital_statusView_mk_individual" FromRole="View_mk_individual" ToRole="View_t_marital_status" />
+        <NavigationProperty Name="mk_individual_to_t_army_range" Relationship="mk_newModel.View_t_army_rankView_mk_individual" FromRole="View_mk_individual" ToRole="View_t_army_rank" />
+        <NavigationProperty Name="mk_individual_to_t_minority_type" Relationship="mk_newModel.t_minority_type_mk_individual" FromRole="View_mk_individual" ToRole="View_t_minority_type" />
+        <NavigationProperty Name="individual_to_status" Relationship="mk_newModel.View_t_mk_statusView_mk_individual" FromRole="View_mk_individual" ToRole="View_t_mk_status" />
+        <NavigationProperty Name="individual_to_country" Relationship="mk_newModel.View_t_countryView_mk_individual" FromRole="View_mk_individual" ToRole="View_t_country" />
+        <NavigationProperty Name="individual_to_education" Relationship="mk_newModel.View_t_educationView_mk_individual" FromRole="View_mk_individual" ToRole="View_t_education" />
+        <NavigationProperty Name="individual_to_mk_language" Relationship="mk_newModel.mk_individual_mk_language" FromRole="View_mk_individual" ToRole="View_mk_language" />
+        <NavigationProperty Name="mk_individual_family_to_relation" Relationship="mk_newModel.mk_individual_family_relation" FromRole="View_mk_individual" ToRole="View_family_relation" />
+        <NavigationProperty Name="individual_to_profession" Relationship="mk_newModel.View_mk_individualView_mk_profession" FromRole="View_mk_individual" ToRole="View_mk_profession" />
+        <NavigationProperty Name="individual_to_mk_publication" Relationship="mk_newModel.mk_individual_mk_publication" FromRole="View_mk_individual" ToRole="View_mk_publication" />
+        <NavigationProperty Name="individual_to_link" Relationship="mk_newModel.View_mk_individualView_mk_link" FromRole="View_mk_individual" ToRole="View_mk_link" />
+        <NavigationProperty Name="individual_to_knesset_role_history" Relationship="mk_newModel.View_mk_individualView_mk_knesset_role_history" FromRole="View_mk_individual" ToRole="View_mk_knesset_role_history" />
+        <NavigationProperty Name="individual_to_faction_history" Relationship="mk_newModel.View_mk_individualView_mk_faction_history" FromRole="View_mk_individual" ToRole="View_mk_faction_history" />
+        <NavigationProperty Name="individual_to_mk_government_history" Relationship="mk_newModel.View_mk_individualView_mk_government_history" FromRole="View_mk_individual" ToRole="View_mk_government_history" />
+        <NavigationProperty Name="individual_to_budget" Relationship="mk_newModel.View_mk_individualView_mk_budget" FromRole="View_mk_individual" ToRole="View_mk_budget" />
+        <NavigationProperty Name="individual_to_expense" Relationship="mk_newModel.View_mk_individualView_mk_expense" FromRole="View_mk_individual" ToRole="View_mk_expense" />
+        <NavigationProperty Name="individual_to_knesset_history" Relationship="mk_newModel.View_mk_individualView_mk_knesset_history" FromRole="View_mk_individual" ToRole="View_mk_knesset_history" />
+      </EntityType>
+      <EntityType Name="View_mk_knesset_role_history">
+        <Key>
+          <PropertyRef Name="mk_knes_role_hist_id" />
+        </Key>
+        <Property Name="mk_knes_role_hist_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="knesset_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="knesset_role_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_knes_role_hist_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_knes_role_hist_end_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_knes_role_hist_end_time" Type="Edm.String" Nullable="true" MaxLength="5" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="knesset_role_history_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_knesset_role_history" FromRole="View_mk_knesset_role_history" ToRole="View_mk_individual" />
+        <NavigationProperty Name="knesset_role_history_to_knesset_role" Relationship="mk_newModel.View_knesset_roleView_mk_knesset_role_history" FromRole="View_mk_knesset_role_history" ToRole="View_knesset_role" />
+      </EntityType>
+      <EntityType Name="View_mk_language">
+        <Key>
+          <PropertyRef Name="mk_language_id" />
+        </Key>
+        <Property Name="mk_language_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="language_id" Type="Edm.Int16" Nullable="true" />
+        <NavigationProperty Name="mk_language_to_individual" Relationship="mk_newModel.mk_individual_mk_language" FromRole="View_mk_language" ToRole="View_mk_individual" />
+        <NavigationProperty Name="mk_language_to_language" Relationship="mk_newModel.View_t_languageView_mk_language" FromRole="View_mk_language" ToRole="View_t_language" />
+      </EntityType>
+      <EntityType Name="View_mk_link">
+        <Key>
+          <PropertyRef Name="mk_link_id" />
+        </Key>
+        <Property Name="mk_link_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_link_name" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="mk_link_name_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="mk_link_url" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="mk_link_type_id" Type="Edm.Byte" Nullable="true" />
+        <NavigationProperty Name="link_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_link" FromRole="View_mk_link" ToRole="View_mk_individual" />
+        <NavigationProperty Name="link_to_link_type" Relationship="mk_newModel.View_mk_link_typeView_mk_link" FromRole="View_mk_link" ToRole="View_mk_link_type" />
+      </EntityType>
+      <EntityType Name="View_mk_link_type">
+        <Key>
+          <PropertyRef Name="mk_link_type_id" />
+        </Key>
+        <Property Name="mk_link_type_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="mk_link_type_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="link_type_to_link" Relationship="mk_newModel.View_mk_link_typeView_mk_link" FromRole="View_mk_link_type" ToRole="View_mk_link" />
+      </EntityType>
+      <EntityType Name="View_mk_profession">
+        <Key>
+          <PropertyRef Name="mk_profession_id" />
+        </Key>
+        <Property Name="mk_profession_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="profession_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_profession_desc" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="mk_profession_desc_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="profession_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_profession" FromRole="View_mk_profession" ToRole="View_mk_individual" />
+        <NavigationProperty Name="mk_profession_to_profession" Relationship="mk_newModel.View_t_professionView_mk_profession" FromRole="View_mk_profession" ToRole="View_t_profession" />
+      </EntityType>
+      <EntityType Name="View_mk_publication">
+        <Key>
+          <PropertyRef Name="mk_publication_id" />
+        </Key>
+        <Property Name="mk_publication_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_publication_title" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="mk_publication_title_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="mk_publication_publishing_date" Type="Edm.DateTime" Nullable="true" />
+        <NavigationProperty Name="mk_publication_to_individual" Relationship="mk_newModel.mk_individual_mk_publication" FromRole="View_mk_publication" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_army_rank">
+        <Key>
+          <PropertyRef Name="army_rank_id" />
+        </Key>
+        <Property Name="army_rank_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="army_rank_name" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="army_rank_name_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="t_army_range_to_mk_individuall" Relationship="mk_newModel.View_t_army_rankView_mk_individual" FromRole="View_t_army_rank" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_city">
+        <Key>
+          <PropertyRef Name="city_id" />
+        </Key>
+        <Property Name="city_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="city_name" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="city_name_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="t_city_to_mk_individual" Relationship="mk_newModel.t_city_mk_individual" FromRole="View_t_city" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_country">
+        <Key>
+          <PropertyRef Name="country_id" />
+        </Key>
+        <Property Name="country_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="country_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="country_name_eng" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="country_to_individual" Relationship="mk_newModel.View_t_countryView_mk_individual" FromRole="View_t_country" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_education">
+        <Key>
+          <PropertyRef Name="education_id" />
+        </Key>
+        <Property Name="education_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="education_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="education_name_eng" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="education_to_individual" Relationship="mk_newModel.View_t_educationView_mk_individual" FromRole="View_t_education" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_faction">
+        <Key>
+          <PropertyRef Name="faction_id" />
+        </Key>
+        <Property Name="faction_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="faction_name" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="faction_name_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="faction_short_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="faction_short_name_eng" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="faction_url" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="faction_desc" Type="Edm.String" Nullable="true" MaxLength="3500" Unicode="false" FixedLength="false" />
+        <Property Name="faction_desc_eng" Type="Edm.String" Nullable="true" MaxLength="3500" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="faction_to_mk_faction_history" Relationship="mk_newModel.View_t_factionView_mk_faction_history" FromRole="View_t_faction" ToRole="View_mk_faction_history" />
+        <NavigationProperty Name="faction_to_faction_knesset" Relationship="mk_newModel.View_t_factionView_faction_knesset" FromRole="View_t_faction" ToRole="View_faction_knesset" />
+        <NavigationProperty Name="faction_to_faction_government" Relationship="mk_newModel.View_t_factionView_faction_government" FromRole="View_t_faction" ToRole="View_faction_government" />
+        <NavigationProperty Name="faction_to_knesset_rolr" Relationship="mk_newModel.View_t_factionView_knesset_role" FromRole="View_t_faction" ToRole="View_knesset_role" />
+      </EntityType>
+      <EntityType Name="View_t_family_relation_type">
+        <Key>
+          <PropertyRef Name="family_relation_type_id" />
+        </Key>
+        <Property Name="family_relation_type_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="family_relation_type_name" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="family_relation_type_name_eng" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="family_relation_type_to_family_relation" Relationship="mk_newModel.t_family_relation_type_family_relation" FromRole="View_t_family_relation_type" ToRole="View_family_relation" />
+      </EntityType>
+      <EntityType Name="View_t_government_role_type">
+        <Key>
+          <PropertyRef Name="government_role_type_id" />
+        </Key>
+        <Property Name="government_role_type_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="government_role_type_name" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="government_role_type_name_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="government_role_type_name_female" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="government_role_type_to_government_role" Relationship="mk_newModel.View_t_government_role_typeView_government_role" FromRole="View_t_government_role_type" ToRole="View_government_role" />
+      </EntityType>
+      <EntityType Name="View_t_knesset_role_type">
+        <Key>
+          <PropertyRef Name="knesset_role_type_id" />
+        </Key>
+        <Property Name="knesset_role_type_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="knesset_role_type_name" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="knesset_role_type_name_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="knesset_role_type_name_female" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="knesset_role_type_name_female_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="knesset_role_type_to_knesset_role" Relationship="mk_newModel.View_t_knesset_role_typeView_knesset_role" FromRole="View_t_knesset_role_type" ToRole="View_knesset_role" />
+      </EntityType>
+      <EntityType Name="View_t_language">
+        <Key>
+          <PropertyRef Name="language_id" />
+        </Key>
+        <Property Name="language_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="language_name" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <Property Name="language_name_eng" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="language_to_mk_language" Relationship="mk_newModel.View_t_languageView_mk_language" FromRole="View_t_language" ToRole="View_mk_language" />
+      </EntityType>
+      <EntityType Name="View_t_lobby">
+        <Key>
+          <PropertyRef Name="lobby_id" />
+        </Key>
+        <Property Name="lobby_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="lobby_name" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="lobby_name_eng" Type="Edm.String" Nullable="true" MaxLength="100" Unicode="false" FixedLength="false" />
+        <Property Name="lobby_desc" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="lobby_desc_eng" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="lobby_link_url" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="lobby_toknesset_role" Relationship="mk_newModel.View_t_lobbyView_knesset_role" FromRole="View_t_lobby" ToRole="View_knesset_role" />
+      </EntityType>
+      <EntityType Name="View_t_marital_status">
+        <Key>
+          <PropertyRef Name="marital_status_id" />
+        </Key>
+        <Property Name="marital_status_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="marital_status_name" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <Property Name="marital_status_name_eng" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <Property Name="marital_status_name_female" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="t_martial_status_to_mk_individual" Relationship="mk_newModel.View_t_marital_statusView_mk_individual" FromRole="View_t_marital_status" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_ministry">
+        <Key>
+          <PropertyRef Name="ministry_id" />
+        </Key>
+        <Property Name="ministry_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="ministry_domain_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="ministry_name" Type="Edm.String" Nullable="true" MaxLength="80" Unicode="false" FixedLength="false" />
+        <Property Name="ministry_name_eng" Type="Edm.String" Nullable="true" MaxLength="80" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="ministry_to_government_role" Relationship="mk_newModel.View_t_ministryView_government_role" FromRole="View_t_ministry" ToRole="View_government_role" />
+        <NavigationProperty Name="ministry_to_ministry_domain" Relationship="mk_newModel.View_t_ministry_domainView_t_ministry" FromRole="View_t_ministry" ToRole="View_t_ministry_domain" />
+      </EntityType>
+      <EntityType Name="View_t_ministry_domain">
+        <Key>
+          <PropertyRef Name="ministry_domain_id" />
+        </Key>
+        <Property Name="ministry_domain_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="ministry_domain_name" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <Property Name="ministry_domain_name_eng" Type="Edm.String" Nullable="true" MaxLength="200" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="ministry_domain_to_ministry" Relationship="mk_newModel.View_t_ministry_domainView_t_ministry" FromRole="View_t_ministry_domain" ToRole="View_t_ministry" />
+      </EntityType>
+      <EntityType Name="View_t_minority_type">
+        <Key>
+          <PropertyRef Name="minority_type_id" />
+        </Key>
+        <Property Name="minority_type_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="minority_type_name" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <Property Name="minority_type_name_eng" Type="Edm.String" Nullable="true" MaxLength="30" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="t_minority_type_to_mk_individual" Relationship="mk_newModel.t_minority_type_mk_individual" FromRole="View_t_minority_type" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_mk_status">
+        <Key>
+          <PropertyRef Name="mk_status_id" />
+        </Key>
+        <Property Name="mk_status_id" Type="Edm.Byte" Nullable="false" />
+        <Property Name="mk_status_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="mk_status_name_eng" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="status_to_individual" Relationship="mk_newModel.View_t_mk_statusView_mk_individual" FromRole="View_t_mk_status" ToRole="View_mk_individual" />
+      </EntityType>
+      <EntityType Name="View_t_profession">
+        <Key>
+          <PropertyRef Name="profession_id" />
+        </Key>
+        <Property Name="profession_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="profession_name" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <Property Name="profession_name_eng" Type="Edm.String" Nullable="true" MaxLength="40" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="profession_to_mk_profession" Relationship="mk_newModel.View_t_professionView_mk_profession" FromRole="View_t_profession" ToRole="View_mk_profession" />
+      </EntityType>
+      <EntityType Name="View_mk_knesset_history">
+        <Key>
+          <PropertyRef Name="mk_knes_hist_id" />
+        </Key>
+        <Property Name="mk_knes_hist_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="mk_individual_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="mk_individual_replaced_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="knesset_id" Type="Edm.Byte" Nullable="true" />
+        <Property Name="mk_knes_hist_begin_date" Type="Edm.DateTime" Nullable="true" />
+        <Property Name="mk_knes_hist_end_date" Type="Edm.DateTime" Nullable="true" />
+        <NavigationProperty Name="knesset_history_to_individual" Relationship="mk_newModel.View_mk_individualView_mk_knesset_history" FromRole="View_mk_knesset_history" ToRole="View_mk_individual" />
+      </EntityType>
+      <Association Name="t_city_mk_individual">
+        <End Role="View_t_city" Type="mk_newModel.View_t_city" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_city">
+            <PropertyRef Name="city_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="city_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_marital_statusView_mk_individual">
+        <End Role="View_t_marital_status" Type="mk_newModel.View_t_marital_status" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_marital_status">
+            <PropertyRef Name="marital_status_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="marital_status_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_army_rankView_mk_individual">
+        <End Role="View_t_army_rank" Type="mk_newModel.View_t_army_rank" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_army_rank">
+            <PropertyRef Name="army_rank_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="army_rank_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="t_minority_type_mk_individual">
+        <End Role="View_t_minority_type" Type="mk_newModel.View_t_minority_type" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_minority_type">
+            <PropertyRef Name="minority_type_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="minority_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_mk_statusView_mk_individual">
+        <End Role="View_t_mk_status" Type="mk_newModel.View_t_mk_status" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_mk_status">
+            <PropertyRef Name="mk_status_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="mk_status_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_countryView_mk_individual">
+        <End Role="View_t_country" Type="mk_newModel.View_t_country" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_country">
+            <PropertyRef Name="country_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="country_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_educationView_mk_individual">
+        <End Role="View_t_education" Type="mk_newModel.View_t_education" Multiplicity="0..1" />
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_education">
+            <PropertyRef Name="education_id" />
+          </Principal>
+          <Dependent Role="View_mk_individual">
+            <PropertyRef Name="education_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="mk_individual_mk_language">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_language" Type="mk_newModel.View_mk_language" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_language">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_languageView_mk_language">
+        <End Role="View_t_language" Type="mk_newModel.View_t_language" Multiplicity="0..1" />
+        <End Role="View_mk_language" Type="mk_newModel.View_mk_language" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_language">
+            <PropertyRef Name="language_id" />
+          </Principal>
+          <Dependent Role="View_mk_language">
+            <PropertyRef Name="language_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="mk_individual_family_relation">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_family_relation" Type="mk_newModel.View_family_relation" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_family_relation">
+            <PropertyRef Name="family_relation_mk_older_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="t_family_relation_type_family_relation">
+        <End Role="View_t_family_relation_type" Type="mk_newModel.View_t_family_relation_type" Multiplicity="0..1" />
+        <End Role="View_family_relation" Type="mk_newModel.View_family_relation" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_family_relation_type">
+            <PropertyRef Name="family_relation_type_id" />
+          </Principal>
+          <Dependent Role="View_family_relation">
+            <PropertyRef Name="family_relation_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_profession">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_profession" Type="mk_newModel.View_mk_profession" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_profession">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_professionView_mk_profession">
+        <End Role="View_t_profession" Type="mk_newModel.View_t_profession" Multiplicity="0..1" />
+        <End Role="View_mk_profession" Type="mk_newModel.View_mk_profession" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_profession">
+            <PropertyRef Name="profession_id" />
+          </Principal>
+          <Dependent Role="View_mk_profession">
+            <PropertyRef Name="profession_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="mk_individual_mk_publication">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_publication" Type="mk_newModel.View_mk_publication" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_publication">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_link">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_link" Type="mk_newModel.View_mk_link" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_link">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_link_typeView_mk_link">
+        <End Role="View_mk_link_type" Type="mk_newModel.View_mk_link_type" Multiplicity="0..1" />
+        <End Role="View_mk_link" Type="mk_newModel.View_mk_link" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_link_type">
+            <PropertyRef Name="mk_link_type_id" />
+          </Principal>
+          <Dependent Role="View_mk_link">
+            <PropertyRef Name="mk_link_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_knesset_role_history">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_knesset_role_history" Type="mk_newModel.View_mk_knesset_role_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_knesset_role_history">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_knesset_roleView_mk_knesset_role_history">
+        <End Role="View_knesset_role" Type="mk_newModel.View_knesset_role" Multiplicity="0..1" />
+        <End Role="View_mk_knesset_role_history" Type="mk_newModel.View_mk_knesset_role_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_knesset_role">
+            <PropertyRef Name="knesset_role_id" />
+          </Principal>
+          <Dependent Role="View_mk_knesset_role_history">
+            <PropertyRef Name="knesset_role_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_lobbyView_knesset_role">
+        <End Role="View_t_lobby" Type="mk_newModel.View_t_lobby" Multiplicity="0..1" />
+        <End Role="View_knesset_role" Type="mk_newModel.View_knesset_role" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_lobby">
+            <PropertyRef Name="lobby_id" />
+          </Principal>
+          <Dependent Role="View_knesset_role">
+            <PropertyRef Name="lobby_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_knesset_role_typeView_knesset_role">
+        <End Role="View_t_knesset_role_type" Type="mk_newModel.View_t_knesset_role_type" Multiplicity="0..1" />
+        <End Role="View_knesset_role" Type="mk_newModel.View_knesset_role" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_knesset_role_type">
+            <PropertyRef Name="knesset_role_type_id" />
+          </Principal>
+          <Dependent Role="View_knesset_role">
+            <PropertyRef Name="knesset_role_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_faction_history">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_faction_history" Type="mk_newModel.View_mk_faction_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_faction_history">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_factionView_mk_faction_history">
+        <End Role="View_t_faction" Type="mk_newModel.View_t_faction" Multiplicity="0..1" />
+        <End Role="View_mk_faction_history" Type="mk_newModel.View_mk_faction_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_faction">
+            <PropertyRef Name="faction_id" />
+          </Principal>
+          <Dependent Role="View_mk_faction_history">
+            <PropertyRef Name="faction_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_factionView_faction_knesset">
+        <End Role="View_t_faction" Type="mk_newModel.View_t_faction" Multiplicity="0..1" />
+        <End Role="View_faction_knesset" Type="mk_newModel.View_faction_knesset" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_faction">
+            <PropertyRef Name="faction_id" />
+          </Principal>
+          <Dependent Role="View_faction_knesset">
+            <PropertyRef Name="faction_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_government_history">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_government_history" Type="mk_newModel.View_mk_government_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_government_history">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_government_roleView_mk_government_history">
+        <End Role="View_government_role" Type="mk_newModel.View_government_role" Multiplicity="0..1" />
+        <End Role="View_mk_government_history" Type="mk_newModel.View_mk_government_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_government_role">
+            <PropertyRef Name="government_role_id" />
+          </Principal>
+          <Dependent Role="View_mk_government_history">
+            <PropertyRef Name="government_role_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_government_role_typeView_government_role">
+        <End Role="View_t_government_role_type" Type="mk_newModel.View_t_government_role_type" Multiplicity="0..1" />
+        <End Role="View_government_role" Type="mk_newModel.View_government_role" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_government_role_type">
+            <PropertyRef Name="government_role_type_id" />
+          </Principal>
+          <Dependent Role="View_government_role">
+            <PropertyRef Name="government_role_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_ministryView_government_role">
+        <End Role="View_t_ministry" Type="mk_newModel.View_t_ministry" Multiplicity="0..1" />
+        <End Role="View_government_role" Type="mk_newModel.View_government_role" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_ministry">
+            <PropertyRef Name="ministry_id" />
+          </Principal>
+          <Dependent Role="View_government_role">
+            <PropertyRef Name="ministry_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_ministry_domainView_t_ministry">
+        <End Role="View_t_ministry_domain" Type="mk_newModel.View_t_ministry_domain" Multiplicity="0..1" />
+        <End Role="View_t_ministry" Type="mk_newModel.View_t_ministry" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_ministry_domain">
+            <PropertyRef Name="ministry_domain_id" />
+          </Principal>
+          <Dependent Role="View_t_ministry">
+            <PropertyRef Name="ministry_domain_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_governmentView_government_role">
+        <End Role="View_government" Type="mk_newModel.View_government" Multiplicity="0..1" />
+        <End Role="View_government_role" Type="mk_newModel.View_government_role" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_government">
+            <PropertyRef Name="government_id" />
+          </Principal>
+          <Dependent Role="View_government_role">
+            <PropertyRef Name="government_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_governmentView_faction_government">
+        <End Role="View_government" Type="mk_newModel.View_government" Multiplicity="0..1" />
+        <End Role="View_faction_government" Type="mk_newModel.View_faction_government" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_government">
+            <PropertyRef Name="government_id" />
+          </Principal>
+          <Dependent Role="View_faction_government">
+            <PropertyRef Name="government_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_factionView_faction_government">
+        <End Role="View_t_faction" Type="mk_newModel.View_t_faction" Multiplicity="0..1" />
+        <End Role="View_faction_government" Type="mk_newModel.View_faction_government" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_faction">
+            <PropertyRef Name="faction_id" />
+          </Principal>
+          <Dependent Role="View_faction_government">
+            <PropertyRef Name="faction_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_t_factionView_knesset_role">
+        <End Role="View_t_faction" Type="mk_newModel.View_t_faction" Multiplicity="0..1" />
+        <End Role="View_knesset_role" Type="mk_newModel.View_knesset_role" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_t_faction">
+            <PropertyRef Name="faction_id" />
+          </Principal>
+          <Dependent Role="View_knesset_role">
+            <PropertyRef Name="faction_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_budget">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_budget" Type="mk_newModel.View_mk_budget" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_budget">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_expense">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_expense" Type="mk_newModel.View_mk_expense" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_expense">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="View_mk_individualView_mk_knesset_history">
+        <End Role="View_mk_individual" Type="mk_newModel.View_mk_individual" Multiplicity="0..1" />
+        <End Role="View_mk_knesset_history" Type="mk_newModel.View_mk_knesset_history" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_mk_individual">
+            <PropertyRef Name="mk_individual_id" />
+          </Principal>
+          <Dependent Role="View_mk_knesset_history">
+            <PropertyRef Name="mk_individual_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="Models" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="KnessetMembersEntities" p7:LazyLoadingEnabled="true" m:IsDefaultEntityContainer="true" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="View_faction_government" EntityType="mk_newModel.View_faction_government" />
+        <EntitySet Name="View_faction_knesset" EntityType="mk_newModel.View_faction_knesset" />
+        <EntitySet Name="View_family_relation" EntityType="mk_newModel.View_family_relation" />
+        <EntitySet Name="View_government" EntityType="mk_newModel.View_government" />
+        <EntitySet Name="View_government_role" EntityType="mk_newModel.View_government_role" />
+        <EntitySet Name="View_knesset_role" EntityType="mk_newModel.View_knesset_role" />
+        <EntitySet Name="View_mk_budget" EntityType="mk_newModel.View_mk_budget" />
+        <EntitySet Name="View_mk_expense" EntityType="mk_newModel.View_mk_expense" />
+        <EntitySet Name="View_mk_faction_history" EntityType="mk_newModel.View_mk_faction_history" />
+        <EntitySet Name="View_mk_government_history" EntityType="mk_newModel.View_mk_government_history" />
+        <EntitySet Name="View_mk_individual" EntityType="mk_newModel.View_mk_individual" />
+        <EntitySet Name="View_mk_knesset_role_history" EntityType="mk_newModel.View_mk_knesset_role_history" />
+        <EntitySet Name="View_mk_language" EntityType="mk_newModel.View_mk_language" />
+        <EntitySet Name="View_mk_link" EntityType="mk_newModel.View_mk_link" />
+        <EntitySet Name="View_mk_link_type" EntityType="mk_newModel.View_mk_link_type" />
+        <EntitySet Name="View_mk_profession" EntityType="mk_newModel.View_mk_profession" />
+        <EntitySet Name="View_mk_publication" EntityType="mk_newModel.View_mk_publication" />
+        <EntitySet Name="View_t_army_rank" EntityType="mk_newModel.View_t_army_rank" />
+        <EntitySet Name="View_t_city" EntityType="mk_newModel.View_t_city" />
+        <EntitySet Name="View_t_country" EntityType="mk_newModel.View_t_country" />
+        <EntitySet Name="View_t_education" EntityType="mk_newModel.View_t_education" />
+        <EntitySet Name="View_t_faction" EntityType="mk_newModel.View_t_faction" />
+        <EntitySet Name="View_t_family_relation_type" EntityType="mk_newModel.View_t_family_relation_type" />
+        <EntitySet Name="View_t_government_role_type" EntityType="mk_newModel.View_t_government_role_type" />
+        <EntitySet Name="View_t_knesset_role_type" EntityType="mk_newModel.View_t_knesset_role_type" />
+        <EntitySet Name="View_t_language" EntityType="mk_newModel.View_t_language" />
+        <EntitySet Name="View_t_lobby" EntityType="mk_newModel.View_t_lobby" />
+        <EntitySet Name="View_t_marital_status" EntityType="mk_newModel.View_t_marital_status" />
+        <EntitySet Name="View_t_ministry" EntityType="mk_newModel.View_t_ministry" />
+        <EntitySet Name="View_t_ministry_domain" EntityType="mk_newModel.View_t_ministry_domain" />
+        <EntitySet Name="View_t_minority_type" EntityType="mk_newModel.View_t_minority_type" />
+        <EntitySet Name="View_t_mk_status" EntityType="mk_newModel.View_t_mk_status" />
+        <EntitySet Name="View_t_profession" EntityType="mk_newModel.View_t_profession" />
+        <EntitySet Name="View_mk_knesset_history" EntityType="mk_newModel.View_mk_knesset_history" />
+        <AssociationSet Name="t_city_mk_individual" Association="mk_newModel.t_city_mk_individual">
+          <End Role="View_t_city" EntitySet="View_t_city" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_marital_statusView_mk_individual" Association="mk_newModel.View_t_marital_statusView_mk_individual">
+          <End Role="View_t_marital_status" EntitySet="View_t_marital_status" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_army_rankView_mk_individual" Association="mk_newModel.View_t_army_rankView_mk_individual">
+          <End Role="View_t_army_rank" EntitySet="View_t_army_rank" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="t_minority_type_mk_individual" Association="mk_newModel.t_minority_type_mk_individual">
+          <End Role="View_t_minority_type" EntitySet="View_t_minority_type" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_mk_statusView_mk_individual" Association="mk_newModel.View_t_mk_statusView_mk_individual">
+          <End Role="View_t_mk_status" EntitySet="View_t_mk_status" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_countryView_mk_individual" Association="mk_newModel.View_t_countryView_mk_individual">
+          <End Role="View_t_country" EntitySet="View_t_country" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_educationView_mk_individual" Association="mk_newModel.View_t_educationView_mk_individual">
+          <End Role="View_t_education" EntitySet="View_t_education" />
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+        </AssociationSet>
+        <AssociationSet Name="mk_individual_mk_language" Association="mk_newModel.mk_individual_mk_language">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_language" EntitySet="View_mk_language" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_languageView_mk_language" Association="mk_newModel.View_t_languageView_mk_language">
+          <End Role="View_t_language" EntitySet="View_t_language" />
+          <End Role="View_mk_language" EntitySet="View_mk_language" />
+        </AssociationSet>
+        <AssociationSet Name="mk_individual_family_relation" Association="mk_newModel.mk_individual_family_relation">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_family_relation" EntitySet="View_family_relation" />
+        </AssociationSet>
+        <AssociationSet Name="t_family_relation_type_family_relation" Association="mk_newModel.t_family_relation_type_family_relation">
+          <End Role="View_t_family_relation_type" EntitySet="View_t_family_relation_type" />
+          <End Role="View_family_relation" EntitySet="View_family_relation" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_profession" Association="mk_newModel.View_mk_individualView_mk_profession">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_profession" EntitySet="View_mk_profession" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_professionView_mk_profession" Association="mk_newModel.View_t_professionView_mk_profession">
+          <End Role="View_t_profession" EntitySet="View_t_profession" />
+          <End Role="View_mk_profession" EntitySet="View_mk_profession" />
+        </AssociationSet>
+        <AssociationSet Name="mk_individual_mk_publication" Association="mk_newModel.mk_individual_mk_publication">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_publication" EntitySet="View_mk_publication" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_link" Association="mk_newModel.View_mk_individualView_mk_link">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_link" EntitySet="View_mk_link" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_link_typeView_mk_link" Association="mk_newModel.View_mk_link_typeView_mk_link">
+          <End Role="View_mk_link_type" EntitySet="View_mk_link_type" />
+          <End Role="View_mk_link" EntitySet="View_mk_link" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_knesset_role_history" Association="mk_newModel.View_mk_individualView_mk_knesset_role_history">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_knesset_role_history" EntitySet="View_mk_knesset_role_history" />
+        </AssociationSet>
+        <AssociationSet Name="View_knesset_roleView_mk_knesset_role_history" Association="mk_newModel.View_knesset_roleView_mk_knesset_role_history">
+          <End Role="View_knesset_role" EntitySet="View_knesset_role" />
+          <End Role="View_mk_knesset_role_history" EntitySet="View_mk_knesset_role_history" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_lobbyView_knesset_role" Association="mk_newModel.View_t_lobbyView_knesset_role">
+          <End Role="View_t_lobby" EntitySet="View_t_lobby" />
+          <End Role="View_knesset_role" EntitySet="View_knesset_role" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_knesset_role_typeView_knesset_role" Association="mk_newModel.View_t_knesset_role_typeView_knesset_role">
+          <End Role="View_t_knesset_role_type" EntitySet="View_t_knesset_role_type" />
+          <End Role="View_knesset_role" EntitySet="View_knesset_role" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_faction_history" Association="mk_newModel.View_mk_individualView_mk_faction_history">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_faction_history" EntitySet="View_mk_faction_history" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_factionView_mk_faction_history" Association="mk_newModel.View_t_factionView_mk_faction_history">
+          <End Role="View_t_faction" EntitySet="View_t_faction" />
+          <End Role="View_mk_faction_history" EntitySet="View_mk_faction_history" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_factionView_faction_knesset" Association="mk_newModel.View_t_factionView_faction_knesset">
+          <End Role="View_t_faction" EntitySet="View_t_faction" />
+          <End Role="View_faction_knesset" EntitySet="View_faction_knesset" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_government_history" Association="mk_newModel.View_mk_individualView_mk_government_history">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_government_history" EntitySet="View_mk_government_history" />
+        </AssociationSet>
+        <AssociationSet Name="View_government_roleView_mk_government_history" Association="mk_newModel.View_government_roleView_mk_government_history">
+          <End Role="View_government_role" EntitySet="View_government_role" />
+          <End Role="View_mk_government_history" EntitySet="View_mk_government_history" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_government_role_typeView_government_role" Association="mk_newModel.View_t_government_role_typeView_government_role">
+          <End Role="View_t_government_role_type" EntitySet="View_t_government_role_type" />
+          <End Role="View_government_role" EntitySet="View_government_role" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_ministryView_government_role" Association="mk_newModel.View_t_ministryView_government_role">
+          <End Role="View_t_ministry" EntitySet="View_t_ministry" />
+          <End Role="View_government_role" EntitySet="View_government_role" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_ministry_domainView_t_ministry" Association="mk_newModel.View_t_ministry_domainView_t_ministry">
+          <End Role="View_t_ministry_domain" EntitySet="View_t_ministry_domain" />
+          <End Role="View_t_ministry" EntitySet="View_t_ministry" />
+        </AssociationSet>
+        <AssociationSet Name="View_governmentView_government_role" Association="mk_newModel.View_governmentView_government_role">
+          <End Role="View_government" EntitySet="View_government" />
+          <End Role="View_government_role" EntitySet="View_government_role" />
+        </AssociationSet>
+        <AssociationSet Name="View_governmentView_faction_government" Association="mk_newModel.View_governmentView_faction_government">
+          <End Role="View_government" EntitySet="View_government" />
+          <End Role="View_faction_government" EntitySet="View_faction_government" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_factionView_faction_government" Association="mk_newModel.View_t_factionView_faction_government">
+          <End Role="View_t_faction" EntitySet="View_t_faction" />
+          <End Role="View_faction_government" EntitySet="View_faction_government" />
+        </AssociationSet>
+        <AssociationSet Name="View_t_factionView_knesset_role" Association="mk_newModel.View_t_factionView_knesset_role">
+          <End Role="View_t_faction" EntitySet="View_t_faction" />
+          <End Role="View_knesset_role" EntitySet="View_knesset_role" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_budget" Association="mk_newModel.View_mk_individualView_mk_budget">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_budget" EntitySet="View_mk_budget" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_expense" Association="mk_newModel.View_mk_individualView_mk_expense">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_expense" EntitySet="View_mk_expense" />
+        </AssociationSet>
+        <AssociationSet Name="View_mk_individualView_mk_knesset_history" Association="mk_newModel.View_mk_individualView_mk_knesset_history">
+          <End Role="View_mk_individual" EntitySet="View_mk_individual" />
+          <End Role="View_mk_knesset_history" EntitySet="View_mk_knesset_history" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

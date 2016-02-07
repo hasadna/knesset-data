@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="sederyomModel" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="View_committee">
+        <Key>
+          <PropertyRef Name="committee_id" />
+        </Key>
+        <Property Name="committee_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="committee_type_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="committee_parent_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="committee_name" Type="Edm.String" Nullable="true" MaxLength="150" Unicode="false" FixedLength="false" />
+        <Property Name="committee_name_eng" Type="Edm.String" Nullable="true" MaxLength="150" Unicode="false" FixedLength="false" />
+        <Property Name="committee_name_arb" Type="Edm.String" Nullable="true" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="committee_begin_date" Type="Edm.DateTime" Nullable="true" Precision="0" />
+        <Property Name="committee_end_date" Type="Edm.DateTime" Nullable="true" Precision="0" />
+        <Property Name="committee_desc" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="committee_desc_eng" Type="Edm.String" Nullable="true" MaxLength="2000" Unicode="false" FixedLength="false" />
+        <Property Name="committee_desc_arb" Type="Edm.Int32" Nullable="true" />
+        <Property Name="committee_note" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="committee_note_eng" Type="Edm.String" Nullable="true" MaxLength="500" Unicode="false" FixedLength="false" />
+        <Property Name="committee_portal_link" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="Committee_type" Relationship="sederyomModel.View_committee_typeView_committee" FromRole="View_committee" ToRole="View_committee_type" />
+      </EntityType>
+      <EntityType Name="View_committee_type">
+        <Key>
+          <PropertyRef Name="committee_type_id" />
+        </Key>
+        <Property Name="committee_type_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="committee_type_name" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <Property Name="committee_type_name_eng" Type="Edm.String" Nullable="true" MaxLength="50" Unicode="false" FixedLength="false" />
+        <NavigationProperty Name="Committees" Relationship="sederyomModel.View_committee_typeView_committee" FromRole="View_committee_type" ToRole="View_committee" />
+      </EntityType>
+      <EntityType Name="View_committee_associated">
+        <Key>
+          <PropertyRef Name="committee_id" />
+          <PropertyRef Name="committee_associated_id" />
+        </Key>
+        <Property Name="committee_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="committee_associated_id" Type="Edm.Int16" Nullable="false" />
+        <Property Name="committee_associated_main" Type="Edm.Boolean" Nullable="true" />
+      </EntityType>
+      <ComplexType Name="CommitteeAgendaSearch_Result">
+        <Property Name="Committee_Agenda_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Committee_Agenda_committee_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="committee_agenda_date" Type="Edm.DateTime" Nullable="true" Precision="23" />
+        <Property Name="committee_agenda_session_content" Type="Edm.String" Nullable="true" MaxLength="2000" />
+        <Property Name="Committee_Agenda_canceled" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Committee_agenda_sub" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Committee_agenda_associated" Type="Edm.String" Nullable="false" MaxLength="250" />
+        <Property Name="Committee_agenda_associated_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Committee_agenda_special" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Committee_agenda_invited1" Type="Edm.String" Nullable="true" MaxLength="2000" />
+        <Property Name="sd2committee_agenda_invite" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="Committee_Agenda_place" Type="Edm.String" Nullable="true" MaxLength="500" />
+        <Property Name="Committee_agenda_note" Type="Edm.String" Nullable="true" MaxLength="500" />
+        <Property Name="committee_location" Type="Edm.String" Nullable="true" MaxLength="500" />
+        <Property Name="StartDateTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="TotalRowsCount" Type="Edm.Int32" Nullable="true" />
+        <Property Name="RowNum" Type="Edm.Int64" Nullable="true" />
+        <Property Name="Topic_ID" Type="Edm.Int32" Nullable="true" />
+        <Property Name="Date_Creation" Type="Edm.DateTime" Nullable="true" Precision="16" />
+        <Property Name="streaming_url" Type="Edm.String" Nullable="true" MaxLength="100" />
+        <Property Name="meeting_start" Type="Edm.String" Nullable="true" MaxLength="36" />
+        <Property Name="meeting_stop" Type="Edm.String" Nullable="true" MaxLength="36" />
+        <Property Name="title" Type="Edm.String" Nullable="true" MaxLength="1000" />
+        <Property Name="meeting_is_paused" Type="Edm.Boolean" Nullable="true" />
+        <Property Name="committee_date_order" Type="Edm.String" Nullable="true" MaxLength="10" />
+        <Property Name="committee_date" Type="Edm.String" Nullable="true" MaxLength="10" />
+        <Property Name="committee_day" Type="Edm.String" Nullable="true" MaxLength="30" />
+        <Property Name="committee_month" Type="Edm.String" Nullable="false" MaxLength="7" />
+        <Property Name="material_id" Type="Edm.Int32" Nullable="true" />
+        <Property Name="material_comittee_id" Type="Edm.Int16" Nullable="true" />
+        <Property Name="material_expiration_date" Type="Edm.String" Nullable="true" MaxLength="10" />
+        <Property Name="committee_material_hour" Type="Edm.String" Nullable="true" MaxLength="5" />
+        <Property Name="url" Type="Edm.String" Nullable="true" MaxLength="256" />
+        <Property Name="OldUrl" Type="Edm.String" Nullable="true" MaxLength="256" />
+        <Property Name="CommitteeBackgroundPageLink" Type="Edm.String" Nullable="true" MaxLength="67" />
+        <Property Name="Committee_agenda_invited" Type="Edm.String" Nullable="true" MaxLength="2000" />
+      </ComplexType>
+      <Association Name="View_committee_typeView_committee">
+        <End Role="View_committee_type" Type="sederyomModel.View_committee_type" Multiplicity="0..1" />
+        <End Role="View_committee" Type="sederyomModel.View_committee" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="View_committee_type">
+            <PropertyRef Name="committee_type_id" />
+          </Principal>
+          <Dependent Role="View_committee">
+            <PropertyRef Name="committee_type_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="Models" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="sederyomEntities" p7:LazyLoadingEnabled="true" m:IsDefaultEntityContainer="true" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <FunctionImport Name="CommitteeAgendaSearch1" ReturnType="Collection(sederyomModel.CommitteeAgendaSearch_Result)" m:HttpMethod="GET" />
+        <FunctionImport Name="CommitteeAgendaSearch" ReturnType="Collection(sederyomModel.CommitteeAgendaSearch_Result)" m:HttpMethod="GET">
+          <Parameter Name="CommitteeId" Type="Edm.String" Mode="In" />
+          <Parameter Name="FromDate" Type="Edm.String" Mode="In" />
+          <Parameter Name="ToDate" Type="Edm.String" Mode="In" />
+          <Parameter Name="Subject" Type="Edm.String" Mode="In" />
+          <Parameter Name="Invited" Type="Edm.String" Mode="In" />
+        </FunctionImport>
+        <EntitySet Name="View_committee" EntityType="sederyomModel.View_committee" />
+        <EntitySet Name="View_committee_type" EntityType="sederyomModel.View_committee_type" />
+        <EntitySet Name="View_committee_associated" EntityType="sederyomModel.View_committee_associated" />
+        <AssociationSet Name="View_committee_typeView_committee" Association="sederyomModel.View_committee_typeView_committee">
+          <End Role="View_committee_type" EntitySet="View_committee_type" />
+          <End Role="View_committee" EntitySet="View_committee" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
