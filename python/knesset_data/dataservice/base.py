@@ -3,6 +3,7 @@ import urllib2
 import datetime
 from knesset_data.dataservice.constants import SERVICE_URLS
 from requests import Request
+from knesset_data.utils.github import github_add_or_update_issue
 
 
 class BaseKnessetDataServiceField(object):
@@ -106,6 +107,13 @@ class BaseKnessetDataServiceObject(object):
     def get_field(cls, name=None):
         fields = cls.get_fields()
         return fields[name]
+
+    @classmethod
+    def error_report(cls, short_title, msg, content=None):
+        title = 'error in %s/%s: %s'%(cls._get_service_name(), cls._get_method_name(), short_title)
+        if content is not None:
+            content = {"content.txt": {"content": content}}
+        github_add_or_update_issue(title, msg, content)
 
     def __init__(self, entry):
         self._entry = entry
