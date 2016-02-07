@@ -25,6 +25,12 @@ class Committee(BaseKnessetDataServiceCollectionObject):
     note_eng = KnessetDataServiceSimpleField('committee_note_eng')
     portal_link = KnessetDataServiceSimpleField('committee_portal_link')
 
+    @classmethod
+    def get_all_active_committees(cls):
+        url = cls._get_url_base()+'?$filter=committee_portal_link%20ne%20null%20and%20committee_end_date%20eq%20null'
+        soup = cls._get_soup(url)
+        return [cls(cls._parse_entry(entry)) for entry in soup.feed.find_all('entry')]
+
 
 class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
 
