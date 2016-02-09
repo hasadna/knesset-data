@@ -166,6 +166,24 @@ class BaseKnessetDataServiceCollectionObject(BaseKnessetDataServiceObject):
         }
 
     @classmethod
+    def _get_all_pages(cls, start_url):
+        """
+        This method is not exposed externally because it might be dangerous
+        it will iterate over all the pages, starting at start_url, following next url in each xml
+        it's dangerous because there is no stop condition
+        so be sure to use it only with some kind of filter in the url to limit number of results
+        """
+        entries = []
+        next_url = start_url
+        while next_url:
+            soup = cls._get_soup(next_url)
+            for entry in soup.feed.find_all('entry'):
+                entries.append(cls(cls._parse_entry(entry)))
+            next_link = soup.find('link', rel="next")
+            next_url = next_link.attrs.get('href', None) if next_link else None
+        return entries
+
+    @classmethod
     def get(cls, id):
         soup = cls._get_soup(cls._get_url_single(id))
         return cls(cls._parse_entry(soup.entry))
