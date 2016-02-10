@@ -10,5 +10,5 @@ setup(
     license='GPLv3',
     url='https://github.com/hasadna/knesset-data',
     packages=find_packages(exclude=["tests", "test.*"]),
-    install_requires=['beautifulsoup4', 'pyslet', 'requests', 'simplejson', 'pyth']
+    install_requires=['beautifulsoup4', 'pyslet', 'requests', 'simplejson', 'pyth', 'python-hebrew-numbers']
 )

@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 from pyth.plugins.rtf15.reader import Rtf15Reader
+from knesset_data.utils.protocol_files import antiword, antixml
 
 
 logger = logging.getLogger('knesset_data.dataservice.committees')
@@ -102,18 +103,6 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     agenda_invited = KnessetDataServiceSimpleField('Committee_agenda_invited')
 
     @classmethod
-    def antiword(cls, filename):
-        cmd='antiword -x db '+filename+' > '+filename+'.awdb.xml'
-        logger.debug(cmd)
-        output = subprocess.check_output(cmd,stderr=subprocess.STDOUT,shell=True)
-        logger.debug(output)
-        with open(filename+'.awdb.xml','r') as f:
-            xmldata=f.read()
-        logger.debug('len(xmldata) = '+str(len(xmldata)))
-        os.remove(filename+'.awdb.xml')
-        return xmldata
-
-    @classmethod
     def handle_doc_protocol(cls, file_str):
         """
         if you want to work on this function you should check out tests.committees.test_protocols
@@ -124,9 +113,9 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
         file_str.seek(0)
         f.write(file_str.read())
         f.close()
-        x = cls.antiword(fname)
+        x = antiword(fname)
         os.remove(fname)
-        return re.sub('[\n ]{2,}', '\n\n', re.sub('<.*?>','',x))
+        return antixml(x)
 
     @classmethod
     def handle_rtf_protocol(cls, file_str):
