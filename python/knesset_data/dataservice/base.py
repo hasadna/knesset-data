@@ -57,6 +57,17 @@ class KnessetDataServiceDateTimeField(BaseKnessetDataServiceField):
         setattr(obj, attr_name, value)
 
 
+class KnessetDataServiceLambdaField(BaseKnessetDataServiceField):
+
+    DEPENDS_ON_OBJ_FIELDS = True
+
+    def __init__(self, func):
+        self._func = func
+
+    def set_value(self, obj, attr_name, entry):
+        setattr(obj, attr_name, self._func(obj, entry))
+
+
 class BaseKnessetDataServiceObject(object):
 
     SERVICE_NAME = None
@@ -115,14 +126,17 @@ class BaseKnessetDataServiceObject(object):
             content = {"content.txt": {"content": content}}
         github_add_or_update_issue(title, msg, content)
 
+    def _set_field_value(self, field, attr_name, entry):
+        field.set_value(self, attr_name, entry)
+
     def __init__(self, entry):
         self._entry = entry
         for attr_name, field in self.get_fields().iteritems():
             if not field.DEPENDS_ON_OBJ_FIELDS:
-                field.set_value(self, attr_name, entry)
+                self._set_field_value(field, attr_name, entry)
         for attr_name, field in self.get_fields().iteritems():
             if field.DEPENDS_ON_OBJ_FIELDS:
-                field.set_value(self, attr_name, entry)
+                self._set_field_value(field, attr_name, entry)
 
 
 class BaseKnessetDataServiceCollectionObject(BaseKnessetDataServiceObject):

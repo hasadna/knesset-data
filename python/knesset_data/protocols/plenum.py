@@ -1,27 +1,20 @@
 # -*- coding: utf-8 -*-
-import logging
-import subprocess
-import os
-import re
 from urllib2 import urlopen
 from tempfile import mkstemp
 from datetime import datetime
 from hebrew_numbers import gematria_to_int
+from utils import antiword, antixml
+import re
+from base import BaseProtocolFile
 
 
-logger = logging.getLogger('knesset_data.utils.protocol_files')
+class PlenumProtocolFile(BaseProtocolFile):
 
-
-class PlenumProtocolFile(object):
-
-    def __init__(self, input_doc_file):
-        fd, write_doc_file_name = mkstemp()
-        with open(write_doc_file_name, 'wb') as write_doc_file:
-            write_doc_file.write(input_doc_file.read())
-        self.xml = antiword(write_doc_file_name)
-        os.remove(write_doc_file_name)
-        self.text = antixml(self.xml)
-        self.header_text = self.text[:1000].replace("\n", "NL")
+    @property
+    def header_text(self):
+        if not hasattr(self, '_cached_header_text'):
+            self._cached_header_text = self.antiword_text[:1000].replace("\n", "NL")
+        return self._cached_header_text
 
     @property
     def meeting_num_heb(self):
@@ -84,28 +77,3 @@ class PlenumProtocolFile(object):
         months = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
         month = months.index(month_name_heb)+1
         return datetime(int(year), month, int(day), int(hours), int(minutes))
-
-    @classmethod
-    def get_from_url(cls, url):
-        return cls(urlopen(url))
-
-    @classmethod
-    def get_from_filename(cls, filename):
-        with open(filename, 'r') as f:
-            return cls(f)
-
-
-def antixml(str):
-    return re.sub('[\n ]{2,}', '\n\n', re.sub('<.*?>','',str))
-
-
-def antiword(filename):
-    cmd='antiword -x db '+filename+' > '+filename+'.awdb.xml'
-    logger.debug(cmd)
-    output = subprocess.check_output(cmd,stderr=subprocess.STDOUT,shell=True)
-    logger.debug(output)
-    with open(filename+'.awdb.xml','r') as f:
-        xmldata=f.read()
-    logger.debug('len(xmldata) = '+str(len(xmldata)))
-    os.remove(filename+'.awdb.xml')
-    return xmldata

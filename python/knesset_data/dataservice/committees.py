@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
 from base import (
     BaseKnessetDataServiceCollectionObject, BaseKnessetDataServiceFunctionObject,
-    KnessetDataServiceSimpleField, KnessetDataServiceDateTimeField, KnessetDataServiceStrptimeField,
+    KnessetDataServiceSimpleField, KnessetDataServiceLambdaField
 )
 import logging
-from cStringIO import StringIO
-import urllib2
-from tempfile import mkstemp
-import os
-import re
-import subprocess
-from pyth.plugins.rtf15.reader import Rtf15Reader
-from knesset_data.utils.protocol_files import antiword, antixml
+from knesset_data.protocols.committee import CommitteeMeetingProtocol
 
 
 logger = logging.getLogger('knesset_data.dataservice.committees')
@@ -65,6 +58,9 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     # url to download the protocol
     url = KnessetDataServiceSimpleField('url')
 
+    # a CommitteeMeetingProtocol object which allows to get data from the protocol
+    protocol = KnessetDataServiceLambdaField(lambda obj,entry: CommitteeMeetingProtocol.get_from_url(obj.url))
+
     # this seems like a shorter name of the place where meeting took place
     location = KnessetDataServiceSimpleField('committee_location')
 
@@ -101,65 +97,6 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     old_url = KnessetDataServiceSimpleField('OldUrl')
     background_page_link = KnessetDataServiceSimpleField('CommitteeBackgroundPageLink')
     agenda_invited = KnessetDataServiceSimpleField('Committee_agenda_invited')
-
-    @classmethod
-    def handle_doc_protocol(cls, file_str):
-        """
-        if you want to work on this function you should check out tests.committees.test_protocols
-        and `python bin/handle_doc_protocol.py`
-        """
-        fid, fname = mkstemp()
-        f = open(fname, 'wb')
-        file_str.seek(0)
-        f.write(file_str.read())
-        f.close()
-        x = antiword(fname)
-        os.remove(fname)
-        return antixml(x)
-
-    @classmethod
-    def handle_rtf_protocol(cls, file_str):
-        raise NotImplementedError()
-        doc = Rtf15Reader.read(file_str)
-        text = []
-        attended_list = False
-        for paragraph in doc.content:
-            for sentence in paragraph.content:
-                if 'bold' in sentence.properties and attended_list:
-                    attended_list = False
-                    text.append('')
-                if 'מוזמנים'.decode('utf8') in sentence.content[0] and 'bold' in sentence.properties:
-                    attended_list = True
-                text.append(sentence.content[0])
-        all_text = '\n'.join(text)
-        return re.sub(r'\n:\n',r':\n',all_text)
-
-    def get_protocol_text(self):
-        url = str(self.url)
-        logger.debug('get_committee_protocol_text. url=%s' % url)
-        if url.find('html') >= 0:
-            url = url.replace('html','rtf')
-        file_str = StringIO()
-        count = 0
-        flag = True
-        while count<10 and flag:
-            try:
-                file_str.write(urllib2.urlopen(url).read())
-                flag = False
-            except Exception:
-                count += 1
-        if flag:
-            logger.error("can't open url %s. tried %d times" % (url, count))
-
-        if url.find(".rtf") >= 0:
-            return self.handle_rtf_protocol(file_str)
-        if url.find(".doc") >= 0:
-            return self.handle_doc_protocol(file_str)
-
-    def parse_protocol_text(self):
-        # self.create_protocol_parts(delete_existing=True)
-        # self.find_attending_members(mks, mk_names)
-        pass
 
     @classmethod
     def get(cls, committee_id, from_date, to_date=None):
