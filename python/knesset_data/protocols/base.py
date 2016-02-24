@@ -3,94 +3,104 @@ import contextlib
 from tempfile import mkstemp
 import os
 from utils import antiword, antixml
+from cached_property import cached_property
 
 
 class BaseProtocolFile(object):
 
+    temp_file_suffix = "temp_knesset_data_protocols_"
+
     def __init__(self, file):
         self._file_type, self._file_data = file
+        self._cleanup = []
+
 
     def _get_file_from_url(self, url):
         # allows to modify the url opening in extending classes
         return urlopen(url)
 
-    @property
+    @cached_property
     def file(self):
-        if not hasattr(self, '_cached_file'):
-            if self._file_type == 'url':
-                self._cached_file = self._get_file_from_url(self._file_data)
-            elif self._file_type == 'filename':
-                self._cached_file = open(self._file_data)
-            elif self._file_type == 'file':
-                self._cached_file = self._file_data
-            elif self._file_type == 'data':
-                self._cached_file = open(self.file_name)
-            else:
-                raise NotImplementedError('file type %s is not supported'%self._file_type)
-        return self._cached_file
+        if self._file_type == 'url':
+            return self._get_file_from_url(self._file_data)
+        elif self._file_type == 'filename':
+            return open(self._file_data)
+        elif self._file_type == 'file':
+            return self._file_data
+        elif self._file_type == 'data':
+            return open(self.file_name)
+        else:
+            raise NotImplementedError('file type %s is not supported'%self._file_type)
 
-    @property
+    @cached_property
+    def file_extension(self):
+        if self._file_type in ("filename", "url"):
+            filename, file_extension = os.path.splitext(self._file_data)
+            return file_extension[1:]
+        else:
+            return None
+
+    @cached_property
     def file_name(self):
-        if not hasattr(self, '_cached_file_name'):
-            if self._file_type == 'filename':
-                self._cached_file_name = self._file_data
-            else:
-                fid, fname = mkstemp()
-                f = open(fname, 'wb')
-                f.write(self.file_contents)
-                f.close()
-                self._cached_file_name = fname
-        return self._cached_file_name
+        if self._file_type == 'filename':
+            return self._file_data
+        else:
+            suffix = ".%s"%self.file_extension if self.file_extension is not None else ""
+            fid, fname = mkstemp(suffix=suffix, prefix=self.temp_file_suffix)
+            f = open(fname, 'wb')
+            f.write(self.file_contents)
+            f.close()
+            self._cleanup.append(lambda: os.remove(fname))
+            return fname
 
-    @property
+    @cached_property
     def file_contents(self):
-        if not hasattr(self, '_cached_file_contents'):
-            if self._file_type == 'data':
-                return self._file_data
-            else:
-                self._cached_file_contents = self.file.read()
-        return self._cached_file_contents
+        if self._file_type == 'data':
+            return self._file_data
+        else:
+            return self.file.read()
 
-    @property
+    @cached_property
     def antiword_xml(self):
-        if not hasattr(self, '_cached_antiword_xml'):
-            self._cached_antiword_xml = antiword(self.file_name)
-        return self._cached_antiword_xml
+        return antiword(self.file_name)
 
-    @property
+    @cached_property
     def antiword_text(self):
-        if not hasattr(self, '_cached_antiword_text'):
-            self._cached_antiword_text = antixml(self.antiword_xml)
-        return self._cached_antiword_text
+        return antixml(self.antiword_xml)
 
     def _close(self):
-        if hasattr(self, '_cached_file') and self._file_type != 'file': self._cached_file.close()
-        if hasattr(self, '_cached_file_name') and self._file_type != 'filename': os.remove(self._cached_file_name)
+        [func() for func in self._cleanup]
+
+    @classmethod
+    @contextlib.contextmanager
+    def _get_from(cls, file_type, file_data):
+        obj = cls((file_type, file_data))
+        try:
+            yield obj
+        finally:
+            if os.environ.get('KNESSET_DATA_PROTOCOLS_KEEP_FILES', None) == "yes":
+                print "\n"
+                print "keeping file: %s"%obj.file_name
+                print "\n"
+            else:
+                obj._close()
 
     @classmethod
     @contextlib.contextmanager
     def get_from_url(cls, url):
-        obj = cls(('url', url))
-        yield obj
-        obj._close()
+        with cls._get_from('url', url) as p: yield p
 
     @classmethod
     @contextlib.contextmanager
     def get_from_file(cls, file):
-        obj = cls(('file', file))
-        yield obj
-        obj._close()
+        with cls._get_from('file', file) as p: yield p
 
     @classmethod
     @contextlib.contextmanager
     def get_from_filename(cls, filename):
-        obj = cls(('filename', filename))
-        yield obj
-        obj._close()
+        with cls._get_from('filename', filename) as p: yield p
 
     @classmethod
     @contextlib.contextmanager
     def get_from_data(cls, data):
-        obj = cls(('data', data))
-        yield obj
-        obj._close()
+        with cls._get_from('data', data) as p: yield p
