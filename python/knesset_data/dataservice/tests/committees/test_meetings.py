@@ -13,4 +13,4 @@ class TestCommitteeMeetings(unittest.TestCase):
         meetings = CommitteeMeeting.get(1, datetime(2016, 2, 16), datetime(2016, 2, 17))
         meeting = meetings[0]
         with meeting.protocol as protocol:
-            self.assertEqual(len(protocol.text), 58378)
+            self.assertEqual(len(protocol.text), 33303)
