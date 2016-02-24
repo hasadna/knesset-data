@@ -30,12 +30,15 @@ class CommitteeMeetingProtocol(BaseProtocolFile):
 
     @cached_property
     def text(self):
-        text = self.antiword_text.decode('utf-8')
-        tmp = text.split('OMNITECH')
-        if len(tmp)==2 and len(tmp[0]) < 40:
-            text = tmp[1]
-        text = text.strip()
-        return text
+        if self._file_type == 'text':
+            return self._file_data
+        else:
+            text = self.antiword_text.decode('utf-8')
+            tmp = text.split('OMNITECH')
+            if len(tmp)==2 and len(tmp[0]) < 40:
+                text = tmp[1]
+            text = text.strip()
+            return text
 
     @cached_property
     def parts(self):
@@ -89,6 +92,12 @@ class CommitteeMeetingProtocol(BaseProtocolFile):
                 if s0.find(name) >= 0 and name not in attended_mk_names:
                     attended_mk_names.append(name)
         return attended_mk_names
+
+    @classmethod
+    @contextlib.contextmanager
+    def get_from_text(cls, text):
+        with cls._get_from('text', text) as p: yield p
+
 
 # TODO: find out if the rtf protocol code is needed in some cases, currently, we don't seem to get rtf files form knesset
 # @classmethod
