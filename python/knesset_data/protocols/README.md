@@ -6,4 +6,4 @@
 
 ## Committee Meeting
 * Parses the text, divides into parts and speakers, identify attending members.
-* See [knesset_data/protocols/tests/test_plenum.py](/python/knesset_data/protocols/tests/test_committee.py) for usage example.
+* See [knesset_data/protocols/tests/test_committee.py](/python/knesset_data/protocols/tests/test_committee.py) for usage example.
