@@ -3,8 +3,7 @@ import logging
 from base import BaseProtocolFile
 from cached_property import cached_property
 import re
-import sys
-import traceback
+import contextlib
 
 logger = logging.getLogger(__name__)
 
