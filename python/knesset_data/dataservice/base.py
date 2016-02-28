@@ -183,7 +183,7 @@ class BaseKnessetDataServiceCollectionObject(BaseKnessetDataServiceObject):
         }
 
     @classmethod
-    def _get_all_pages(cls, start_url):
+    def _get_all_pages(cls, start_url, params=None):
         """
         This method is not exposed externally because it might be dangerous
         it will iterate over all the pages, starting at start_url, following next url in each xml
@@ -191,13 +191,15 @@ class BaseKnessetDataServiceCollectionObject(BaseKnessetDataServiceObject):
         so be sure to use it only with some kind of filter in the url to limit number of results
         """
         entries = []
-        next_url = start_url
+        # Composing URL in advance since the link to the next page already have the params of the
+        # first request and using `get_soup` with the params argument creates duplicate params
+        next_url = ds_utils.compose_url_get(start_url, params)
         while next_url:
             soup = cls._get_soup(next_url)
             for entry in soup.feed.find_all('entry'):
                 entries.append(cls(cls._parse_entry(entry)))
             next_link = soup.find('link', rel="next")
-            next_url = next_link.attrs.get('href', None) if next_link else None
+            next_url = next_link and next_link.attrs.get('href', None)
         return entries
 
     @classmethod
