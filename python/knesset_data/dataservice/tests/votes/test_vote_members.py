@@ -1,6 +1,5 @@
 import unittest
 from knesset_data.dataservice.votes import Vote, VoteMember
-from datetime import datetime
 
 
 class TestVotes(unittest.TestCase):

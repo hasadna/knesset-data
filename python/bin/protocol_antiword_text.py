@@ -1,15 +1,28 @@
 #!/usr/bin/env python
+""" converts word document to text using the protocols.BaseProtocolFile class
+
+This is usefull for update the autoamted tests files if you make a modification to the method
+
+Running without parameters will show a usage message:
+
+$ python bin/protocol_antiword_text.py
+"""
+
 import logging
 import sys
 import os
 from knesset_data.protocols.base import BaseProtocolFile
 
+help_text = """
+usage: {cmd} <source_doc_file_name> <output_txt_file_name>
+* to modify the committee meeting test file:"
+* $ {cmd} knesset_data/protocols/tests/20_ptv_317899.doc knesset_data/protocols/tests/20_ptv_317899.txt
+"""
+
 
 def main():
     if len(sys.argv) != 3:
-        print "usage: "+sys.argv[0]+" <source_doc_file_name> <output_txt_file_name>"
-        print "* to modify the committee meeting test file:"
-        print "* $ "+sys.argv[0]+" knesset_data/protocols/tests/20_ptv_317899.doc knesset_data/protocols/tests/20_ptv_317899.txt"
+        print help_text.format(cmd=sys.argv[0])
     else:
         source_doc_file_name = sys.argv[1]
         output_txt_file_name = sys.argv[2]

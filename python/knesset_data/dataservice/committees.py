@@ -59,6 +59,8 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     url = KnessetDataServiceSimpleField('url')
 
     # a CommitteeMeetingProtocol object which allows to get data from the protocol
+    # because parsing the protocol requires heavy IO and processing - we provide it as a generator
+    # see tests/test_meetings.py for usage example
     protocol = KnessetDataServiceLambdaField(lambda obj,entry: CommitteeMeetingProtocol.get_from_url(obj.url))
 
     # this seems like a shorter name of the place where meeting took place

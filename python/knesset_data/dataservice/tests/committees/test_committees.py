@@ -1,11 +1,14 @@
 import unittest
+
+
 from knesset_data.dataservice.committees import Committee
 
 
 class TestCommittees(unittest.TestCase):
 
     def test_committee(self):
-        committee = Committee.get(1)
+        committee_id = 1
+        committee = Committee.get(committee_id)
         committees = Committee.get_page(order_by=('id', 'asc'))
         self.assertEqual(committee.name, committees[0].name)
 
