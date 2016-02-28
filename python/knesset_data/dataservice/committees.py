@@ -34,10 +34,13 @@ class Committee(BaseKnessetDataServiceCollectionObject):
     portal_link = KnessetDataServiceSimpleField('committee_portal_link')
 
     @classmethod
-    def get_all_active_committees(cls):
-        url = cls._get_url_base()+'?$filter=committee_portal_link%20ne%20null%20and%20committee_end_date%20eq%20null'
-        soup = cls._get_soup(url)
-        return [cls(cls._parse_entry(entry)) for entry in soup.feed.find_all('entry')]
+    def get_all_active_committees(cls, has_portal_link=True):
+        if has_portal_link:
+            query = ' '.join((IS_COMMITTEE_ACTIVE, 'and', COMMITTEE_HAS_PORTAL_LINK))
+        else:
+            query = IS_COMMITTEE_ACTIVE
+        params = {'$filter': query}
+        return cls._get_all_pages(cls._get_url_base(), params)
 
 
 class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
