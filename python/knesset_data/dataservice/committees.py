@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
+import logging
+
 from base import (
     BaseKnessetDataServiceCollectionObject, BaseKnessetDataServiceFunctionObject,
     KnessetDataServiceSimpleField, KnessetDataServiceLambdaField
 )
-import logging
 from knesset_data.protocols.committee import CommitteeMeetingProtocol
-
 
 logger = logging.getLogger('knesset_data.dataservice.committees')
 
+IS_COMMITTEE_ACTIVE = 'committee_end_date eq null'
+COMMITTEE_HAS_PORTAL_LINK = 'committee_portal_link ne null'
+
 
 class Committee(BaseKnessetDataServiceCollectionObject):
-
     SERVICE_NAME = "committees"
     METHOD_NAME = "View_committee"
     DEFAULT_ORDER_BY_FIELD = "id"
-    
+
     id = KnessetDataServiceSimpleField('committee_id')
     type_id = KnessetDataServiceSimpleField('committee_type_id')
     parent_id = KnessetDataServiceSimpleField('committee_parent_id')
@@ -39,7 +41,6 @@ class Committee(BaseKnessetDataServiceCollectionObject):
 
 
 class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
-
     SERVICE_NAME = "committees"
     METHOD_NAME = "CommitteeAgendaSearch"
 
@@ -61,7 +62,8 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     # a CommitteeMeetingProtocol object which allows to get data from the protocol
     # because parsing the protocol requires heavy IO and processing - we provide it as a generator
     # see tests/test_meetings.py for usage example
-    protocol = KnessetDataServiceLambdaField(lambda obj,entry: CommitteeMeetingProtocol.get_from_url(obj.url))
+    protocol = KnessetDataServiceLambdaField(
+        lambda obj, entry: CommitteeMeetingProtocol.get_from_url(obj.url))
 
     # this seems like a shorter name of the place where meeting took place
     location = KnessetDataServiceSimpleField('committee_location')
@@ -111,9 +113,9 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
         >>> CommitteeMeeting.get(2, datetime(2015, 2, 1), datetime(2015, 2, 20))
         """
         params = {
-            "CommitteeId": "'%s'"%committee_id,
-            "FromDate": "'%sT00:00:00'"%from_date.strftime('%Y-%m-%d')
+            "CommitteeId": "'%s'" % committee_id,
+            "FromDate": "'%sT00:00:00'" % from_date.strftime('%Y-%m-%d')
         }
         if to_date:
-            params["ToDate"] = "'%sT00:00:00'"%to_date.strftime('%Y-%m-%d')
+            params["ToDate"] = "'%sT00:00:00'" % to_date.strftime('%Y-%m-%d')
         return super(CommitteeMeeting, cls).get(params)
