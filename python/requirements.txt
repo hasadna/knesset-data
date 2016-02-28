@@ -1,3 +1,3 @@
+-e .
+
 git+https://github.com/turnkeylinux/octohub.git
-pyth
-python-hebrew-numbers
