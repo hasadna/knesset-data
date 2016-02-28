@@ -1,3 +1,10 @@
+"""verifies each knesset dataservice metadata has not changed
+
+if a change is detected - a github issue is automatically opened (assuming GitHub OAuth is setup properly)
+
+runs from bin/metadata_monitor.sh
+"""
+
 from knesset_data.dataservice.constants import SERVICE_URLS
 import requests
 from requests.exceptions import RequestException
