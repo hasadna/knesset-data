@@ -6,7 +6,6 @@ before_install:
   - sudo apt-get install -y antiword
 install:
   - pip install --upgrade pip
-  - pip install python/
-  - pip install -r python/requirements.txt
+  - cd python && pip install -r requirements.txt
 script:
   - cd python && sh bin/run_tests.sh
