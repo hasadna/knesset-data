@@ -15,8 +15,6 @@ from knesset_data.protocols.base import BaseProtocolFile
 
 help_text = """
 usage: {cmd} <source_doc_file_name> <output_txt_file_name>
-* to modify the committee meeting test file:"
-* $ {cmd} knesset_data/protocols/tests/20_ptv_317899.doc knesset_data/protocols/tests/20_ptv_317899.txt
 """
 
 

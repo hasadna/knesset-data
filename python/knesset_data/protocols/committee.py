@@ -39,6 +39,10 @@ class CommitteeMeetingProtocol(BaseProtocolFile):
             text = text.strip()
             return text
 
+    def _get_section_text(self, section_lines):
+        section_text = '\n'.join(section_lines).strip()
+        return section_text.replace(u"\n\n–\n\n", u' - ')
+
     @cached_property
     def parts(self):
         parts = []
@@ -64,7 +68,7 @@ class CommitteeMeetingProtocol(BaseProtocolFile):
         for line in protocol_text:
             if self._is_legitimate_header(line):
                 if (i > 1) or (section):
-                    parts.append(CommitteeMeetingProtocolPart(header.strip(), '\n'.join(section).strip()))
+                    parts.append(CommitteeMeetingProtocolPart(header.strip(), self._get_section_text(section)))
                 i += 1
                 header = re.sub('[\>:]+$', '', re.sub('^[\< ]+', '', line))
                 section = []
@@ -72,7 +76,7 @@ class CommitteeMeetingProtocol(BaseProtocolFile):
                 section.append(line)
 
         # don't forget the last section
-        parts.append(CommitteeMeetingProtocolPart(header.strip(), '\n'.join(section).strip()))
+        parts.append(CommitteeMeetingProtocolPart(header.strip(), self._get_section_text(section)))
         return parts
 
     def find_attending_members(self, mk_names):

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from urllib2 import urlopen
 import contextlib
 from tempfile import mkstemp
