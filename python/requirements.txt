@@ -1,3 +1,9 @@
--e .
+# all requirements should be in setup.py install_requires line
+#
+# this file should only contain requirements which cannot be installed in pypi
+#
+# these requirements should be installed before installing knesset-data
+#
+# see .travis.yml to see how knesset-data should be installed
 
 git+https://github.com/turnkeylinux/octohub.git
