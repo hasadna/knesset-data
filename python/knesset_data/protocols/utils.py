@@ -17,6 +17,9 @@ def antixml(str):
 
 
 def antiword(filename):
+    if os.environ.get('HOME', '') == '':
+        # see http://stackoverflow.com/questions/11182095/antiword-doesnt-work-on-hosted-server
+        os.environ.setdefault('ANTIWORDHOME', '/usr/share/antiword')
     cmd='antiword -x db '+filename+' > '+filename+'.awdb.xml'
     try:
         logger.debug(cmd)
