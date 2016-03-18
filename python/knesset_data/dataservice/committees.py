@@ -58,6 +58,8 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
 
     # title of the meeting
     title = KnessetDataServiceSimpleField('title')
+    # seems like in some committee meetings, the title field is empty, in that case title can be taken from this field
+    session_content = KnessetDataServiceSimpleField('committee_agenda_session_content')
 
     # url to download the protocol
     url = KnessetDataServiceSimpleField('url')
@@ -74,11 +76,10 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     # this looks like a longer field with the specific details of where the meeting took place
     place = KnessetDataServiceSimpleField('Committee_Agenda_place')
 
-    # date/time when the meeting ended
+    # date/time when the meeting ended - this is not always available, in some meetings it's empty
     meeting_stop = KnessetDataServiceSimpleField('meeting_stop')
 
     ### following fields seem less interesting ###
-    session_content = KnessetDataServiceSimpleField('committee_agenda_session_content')
     agenda_canceled = KnessetDataServiceSimpleField('Committee_Agenda_canceled')
     agenda_sub = KnessetDataServiceSimpleField('Committee_agenda_sub')
     agenda_associated = KnessetDataServiceSimpleField('Committee_agenda_associated')
