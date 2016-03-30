@@ -6,16 +6,15 @@ from knesset_data.utils.testutils import TestCaseFileAssertionsMixin
 
 
 class TestCommitteeMeetings(unittest.TestCase, TestCaseFileAssertionsMixin):
-
     def setUp(self):
-        source_doc_file_name = os.path.join(os.path.dirname(__file__),'20_ptv_317899.doc')
+        source_doc_file_name = os.path.join(os.path.dirname(__file__), '20_ptv_317899.doc')
         self.protocol_generator = CommitteeMeetingProtocol.get_from_filename(source_doc_file_name)
 
     def test_text(self):
         with self.protocol_generator as protocol:
             self.assertFileContents(
-                expected_file_name=os.path.join(os.path.dirname(__file__),'20_ptv_317899_processed.txt'),
-                actual_content = protocol.text
+                expected_file_name=os.path.join(os.path.dirname(__file__), '20_ptv_317899_processed.txt'),
+                actual_content=protocol.text
             )
 
     def test_attending_members(self):
@@ -74,6 +73,13 @@ class TestCommitteeMeetings(unittest.TestCase, TestCaseFileAssertionsMixin):
             self.assertProtocolPartEquals(parts[9],
                                           u"""קובי בוזו""",
                                           u"""בוקר טוב. קובי בוזו, רשות המסים. לצדי גיא גולדמן. לפני כחצי שנה היינו בוועדת הכספים בנושא של ממירים, וביקשנו, בשיתוף עם משרד הכלכלה, להמיר את מס הקנייה בשיעור 10% על ממירים, למכס בשיעור 10% על ממירים.""")
+
+    def test_protocol_attendenace_strange_title(self):
+        source_doc_file_name = os.path.join(os.path.dirname(__file__), '20_ptv_321195.doc')
+        protocol_generator = CommitteeMeetingProtocol.get_from_filename(source_doc_file_name)
+        with protocol_generator as protocol:
+            self.assertEqual([u"קארין אלהרר", u"דוד אמסלם", u"אוסאמה סעדי"],
+                             protocol.find_attending_members([u"קארין אלהרר", u"דוד אמסלם", u"אוסאמה סעדי"]))
 
     def assertProtocolPartEquals(self, part, header, body):
         try:
