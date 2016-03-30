@@ -17,6 +17,8 @@ def antixml(str):
 
 
 def antiword(filename):
+    if not os.path.exists(filename):
+        raise IOError('File not found: %s'%filename)
     if os.environ.get('HOME', '') == '':
         # see http://stackoverflow.com/questions/11182095/antiword-doesnt-work-on-hosted-server
         os.environ.setdefault('ANTIWORDHOME', '/usr/share/antiword')

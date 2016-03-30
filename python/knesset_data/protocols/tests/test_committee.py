@@ -81,6 +81,14 @@ class TestCommitteeMeetings(unittest.TestCase, TestCaseFileAssertionsMixin):
             self.assertEqual([u"קארין אלהרר", u"דוד אמסלם", u"אוסאמה סעדי"],
                              protocol.find_attending_members([u"קארין אלהרר", u"דוד אמסלם", u"אוסאמה סעדי"]))
 
+    def test_attending_members_invalid_data(self):
+        # file does not exist
+        with CommitteeMeetingProtocol.get_from_filename('/foo/bar/baz') as protocol:
+            with self.assertRaises(IOError): protocol.find_attending_members([])
+        # no text
+        with CommitteeMeetingProtocol.get_from_text(None) as protocol:
+            self.assertEqual([], protocol.find_attending_members([]))
+
     def assertProtocolPartEquals(self, part, header, body):
         try:
             self.assertEqual(part.header, header)

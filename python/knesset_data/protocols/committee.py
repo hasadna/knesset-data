@@ -86,14 +86,15 @@ class CommitteeMeetingProtocol(BaseProtocolFile):
         this is done by parsing the protocol text, so it's not very accurate
         """
         attended_mk_names = []
-        r = re.search(
-            "חברי הו?ועד(.*?)(\n[^\n]*(ייעוץ|יועץ|רישום|רש(מים|מות|מו|מ|מת|ם|מה)|קצר(נים|ניות|ן|נית))[\s|:])".decode(
-                'utf8'), self.text, re.DOTALL).group(1)
-        s = r.split('\n')
-        for (i, name) in enumerate(mk_names):
-            for s0 in s:
-                if s0.find(name) >= 0 and name not in attended_mk_names:
-                    attended_mk_names.append(name)
+        if isinstance(self.text, (str, unicode)):
+            r = re.search(
+                "חברי הו?ועד(.*?)(\n[^\n]*(ייעוץ|יועץ|רישום|רש(מים|מות|מו|מ|מת|ם|מה)|קצר(נים|ניות|ן|נית))[\s|:])".decode(
+                    'utf8'), self.text, re.DOTALL).group(1)
+            s = r.split('\n')
+            for (i, name) in enumerate(mk_names):
+                for s0 in s:
+                    if s0.find(name) >= 0 and name not in attended_mk_names:
+                        attended_mk_names.append(name)
         return attended_mk_names
 
     @classmethod
