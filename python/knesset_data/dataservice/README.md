@@ -4,6 +4,12 @@ It's a standard [OData](http://www.odata.org/) interface providing access to mos
 
 See [constants](/python/knesset_data/dataservice/constants.py) for the definitive list of the available service endpoints
 
+## Services Documentation and Usage Examples
+
+* [Votes](/python/knesset_data/dataservice/VOTES.md)
+
+## Viewing the source data
+
 You can view the data online using [xodata](http://pragmatiqa.com/xodata/):
 * in xodata - choose source "metadata url"
 * paste the relevant service /$metadata url:
