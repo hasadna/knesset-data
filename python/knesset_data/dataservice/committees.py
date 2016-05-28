@@ -45,7 +45,7 @@ class Committee(BaseKnessetDataServiceCollectionObject):
 
 class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     SERVICE_NAME = "committees"
-    METHOD_NAME = "CommitteeAgendaSearch"
+    METHOD_NAME = "CommitteeAgendaSearchx"
 
     # the primary key of committee meetings
     id = KnessetDataServiceSimpleField('Committee_Agenda_id')
