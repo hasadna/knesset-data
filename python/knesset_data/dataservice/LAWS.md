@@ -1,6 +1,6 @@
 # Knesset Laws Dataservice
 
-Returns information about private for preliminary hearing (הצעות חוק פרטיות לדיון מוקדם).
+Returns information about private proposal for preliminary hearing (הצעות חוק פרטיות לדיון מוקדם).
 
 On Knesset website this data is available here: http://knesset.gov.il/privatelaw/Plaw_display.asp?lawtp=1
 
