@@ -35,3 +35,5 @@ Returns data about the MKs that initiated or joined the private law proposal
 #### Fields
 
 "mk_id" field related to the standard mk id as used on official knesset and also on Open-Knesset
+
+"mk_suggest" field contains 1 if the mk suggested the proposal (there can be multiple mks that suggested a proposal)
