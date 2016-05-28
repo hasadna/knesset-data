@@ -10,7 +10,7 @@ On Knesset website this data is available here: http://knesset.gov.il/privatelaw
 
 ## Entities
 
-### privatelaw ([python usage example](https://github.com/hasadna/knesset-data/blob/master/python/knesset_data/dataservice/tests/laws))
+### privatelaw ([python usage example](https://github.com/hasadna/knesset-data/blob/master/python/knesset_data/dataservice/tests/laws/test_laws.py))
 
 Returns data about the private laws.
 
@@ -28,7 +28,7 @@ Field names are mostly self explanatory.
 
 To get the actual proposal rtf file, you can use the guess_link_url() method but bear in mind that due to bug mentioned above it might not be very reliable.
 
-### privatelaw_mk ([python usage example](https://github.com/hasadna/knesset-data/blob/master/python/knesset_data/dataservice/tests/laws))
+### privatelaw_mk ([python usage example](https://github.com/hasadna/knesset-data/blob/master/python/knesset_data/dataservice/tests/laws/test_laws.py))
 
 Returns data about the MKs that initiated or joined the private law proposal
 
