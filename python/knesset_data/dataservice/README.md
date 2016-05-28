@@ -7,6 +7,7 @@ See [constants](/python/knesset_data/dataservice/constants.py) for the definitiv
 ## Services Documentation and Usage Examples
 
 * [Votes](/python/knesset_data/dataservice/VOTES.md)
+* [Laws](/python/knesset_data/dataservice/LAWS.md)
 
 ## Viewing the source data
 
