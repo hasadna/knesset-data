@@ -100,7 +100,7 @@ class BaseKnessetDataServiceObject(object):
         elif prop_type == 'Edm.Decimal':
             return float(prop.string)
         elif prop_type == 'Edm.DateTime':
-            return datetime.datetime.strptime(prop.string, "%Y-%m-%dT%H:%M:%S")
+            return datetime.datetime.strptime(prop.string.split('.')[0], "%Y-%m-%dT%H:%M:%S")
         elif prop_type == 'Edm.Boolean':
             return prop.string == 'true'
         else:
