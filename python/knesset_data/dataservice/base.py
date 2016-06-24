@@ -3,10 +3,15 @@ import datetime
 import requests
 from bs4 import BeautifulSoup, Tag
 from requests import Request
+import logging
 
 from knesset_data.dataservice.constants import SERVICE_URLS
 import knesset_data.dataservice.utils as ds_utils
 from knesset_data.utils.github import github_add_or_update_issue
+from knesset_data.dataservice.exceptions import KnessetDataServiceRequestException
+
+
+logger=logging.getLogger(__name__)
 
 
 class BaseKnessetDataServiceField(object):
@@ -72,6 +77,11 @@ class BaseKnessetDataServiceObject(object):
     SERVICE_NAME = None
     METHOD_NAME = None
 
+    # if you need to fetch something that takes longer then 15 seconds to get
+    # you should try to split it into multiple small requests (using filters)
+    # you can also override on the
+    DEFAULT_REQUEST_TIMEOUT_SECONDS = 15
+
     @classmethod
     def _get_service_name(cls):
         return cls.SERVICE_NAME
@@ -85,9 +95,18 @@ class BaseKnessetDataServiceObject(object):
         return SERVICE_URLS[cls._get_service_name()] + '/' + cls._get_method_name()
 
     @classmethod
+    def _get_request_exception(cls, original_exception):
+        return KnessetDataServiceRequestException(cls._get_service_name(), cls._get_method_name(), original_exception)
+
+    @classmethod
     def _get_soup(cls, url, params=None):
-        response = requests.get(url, params=params)
-        return BeautifulSoup(response.content, 'html.parser')
+        params = {} if params == None else params
+        timeout = params.pop('__timeout__', cls.DEFAULT_REQUEST_TIMEOUT_SECONDS)
+        try:
+            response = requests.get(url, params=params, timeout=timeout)
+            return BeautifulSoup(response.content, 'html.parser')
+        except requests.RequestException, e:
+            raise cls._get_request_exception(e)
 
     @classmethod
     def _handle_prop(cls, prop_type, prop_null, prop):
