@@ -23,3 +23,15 @@ You can view the data online using [xodata](http://pragmatiqa.com/xodata/):
   * messages: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/KnessetMessagesData.svc/$metadata
   * mmm: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/MMMData.svc/$metadata
   * lobbyists: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/LobbyistData.svc/$metadata
+
+NEW KNESSET API (odata v3)
+* laws: http://knesset.gov.il/KnessetOdataService/LawsData.svc/
+* bills: http://knesset.gov.il/KnessetOdataService/BillsData.svc/
+* final_laws:  http://knesset.gov.il/KnessetOdataService/FinalLawsData.svc/
+* members: http://knesset.gov.il/KnessetOdataService/KnessetMembersData.svc/
+* votes: http://knesset.gov.il/KnessetOdataService/VotesData.svc/
+* committees: http://knesset.gov.il/KnessetOdataService/CommitteeScheduleData.svc/
+* mmm: http://knesset.gov.il/KnessetOdataService/MMMData.svc/
+* lobbyists: http://knesset.gov.il/KnessetOdataService/LobbyistODataService.svc/
+
+Messages does not currently have a new api
