@@ -12,6 +12,10 @@ See [constants](/python/knesset_data/dataservice/constants.py) for the definitiv
 ## Viewing the source data
 
 You can view the data online using [xodata](http://pragmatiqa.com/xodata/):
+
+Currently Knesset broke the metadata reading in xodata, so might need to figure this manually using the documented api
+
+
 * in xodata - choose source "metadata url"
 * paste the relevant service /$metadata url:
   * laws: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/LawsData.svc/$metadata
@@ -35,3 +39,5 @@ NEW KNESSET API (odata v3)
 * lobbyists: http://knesset.gov.il/KnessetOdataService/LobbyistODataService.svc/
 
 Messages does not currently have a new api
+
+All the knesset APIs are available [here](http://main.knesset.gov.il/Activity/Info/Pages/Databases.aspx)
