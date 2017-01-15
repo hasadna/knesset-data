@@ -2,6 +2,7 @@ import unittest
 from datetime import datetime
 from knesset_data.dataservice.committees import Committee, CommitteeMeeting
 from knesset_data.dataservice.exceptions import KnessetDataServiceRequestException
+from knesset_data.utils.testutils import data_dependant_test
 
 
 class CommitteeWithVeryShortTimeoutAndInvalidService(Committee):
@@ -16,6 +17,7 @@ class CommitteeMeetingWithVeryShortTimeoutAndInvalidService(CommitteeMeeting):
 
 class TestDataServiceRequestExceptions(unittest.TestCase):
 
+    @data_dependant_test()
     def test_committee(self):
         exception = None
         try:
@@ -35,6 +37,7 @@ class TestDataServiceRequestExceptions(unittest.TestCase):
             "('Connection aborted.', error(104, 'Connection reset by peer'))",
         ])
 
+    @data_dependant_test()
     def test_committee_meeting(self):
         exception = None
         try:

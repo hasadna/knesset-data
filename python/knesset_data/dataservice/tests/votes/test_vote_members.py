@@ -1,9 +1,11 @@
 import unittest
 from knesset_data.dataservice.votes import Vote, VoteMember
+from knesset_data.utils.testutils import data_dependant_test
 
 
 class TestVotes(unittest.TestCase):
 
+    @data_dependant_test()
     def test(self):
         vote = Vote.get(94)
         vote_members = VoteMember.get_by_vote_id(vote.id)
