@@ -14,6 +14,12 @@ class CommitteeMeetingProtocolPart(object):
         self.header = header
         self.body = body
 
+    def all_field_values(self):
+        return {
+            'header': self.header,
+            'body': self.body
+        }
+
 
 class CommitteeMeetingProtocol(BaseProtocolFile):
 

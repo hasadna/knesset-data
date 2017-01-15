@@ -35,7 +35,7 @@ class BaseProtocolFile(object):
 
     @cached_property
     def file_extension(self):
-        if self._file_type in ("filename", "url"):
+        if self._file_type in ("filename", "url") and self._file_data:
             filename, file_extension = os.path.splitext(self._file_data)
             return file_extension[1:]
         else:

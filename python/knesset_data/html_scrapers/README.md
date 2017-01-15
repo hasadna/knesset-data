@@ -1,4 +1,4 @@
-# Knesset Website
+# Knesset Html scrapers
 
 ## Votes
 * Parses the Knesset vote page (e.g. http://www.knesset.gov.il/vote/heb/Vote_Res_Map.asp?vote_id_t=21069)

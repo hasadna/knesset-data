@@ -2,19 +2,16 @@
 
 It's a standard [OData](http://www.odata.org/) interface providing access to most Knesset data.
 
-See [constants](/python/knesset_data/dataservice/constants.py) for the definitive list of the available service endpoints
-
 ## Services Documentation and Usage Examples
 
-* [Votes](/python/knesset_data/dataservice/VOTES.md)
-* [Laws](/python/knesset_data/dataservice/LAWS.md)
+* [Votes](/docs/dataservice/VOTES.md)
+* [Laws](/docs/dataservice/LAWS.md)
 
 ## Viewing the source data
 
 You can view the data online using [xodata](http://pragmatiqa.com/xodata/):
 
 Currently Knesset broke the metadata reading in xodata, so might need to figure this manually using the documented api
-
 
 * in xodata - choose source "metadata url"
 * paste the relevant service /$metadata url:
@@ -40,4 +37,7 @@ NEW KNESSET API (odata v3)
 
 Messages does not currently have a new api
 
-All the knesset APIs are available [here](http://main.knesset.gov.il/Activity/Info/Pages/Databases.aspx)
+## See also
+
+* All the knesset APIs are available [here](http://main.knesset.gov.il/Activity/Info/Pages/Databases.aspx)
+* See [constants.py](/python/knesset_data/dataservice/constants.py) for the definitive list of the available service endpoints

@@ -68,7 +68,7 @@ class CommitteeMeeting(BaseKnessetDataServiceFunctionObject):
     # because parsing the protocol requires heavy IO and processing - we provide it as a generator
     # see tests/test_meetings.py for usage example
     protocol = KnessetDataServiceLambdaField(
-        lambda obj, entry: CommitteeMeetingProtocol.get_from_url(obj.url))
+        lambda obj, entry: CommitteeMeetingProtocol.get_from_url(obj.url) if obj.url else None)
 
     # this seems like a shorter name of the place where meeting took place
     location = KnessetDataServiceSimpleField('committee_location')

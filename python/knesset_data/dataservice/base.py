@@ -150,6 +150,9 @@ class BaseKnessetDataServiceObject(object):
     def _set_field_value(self, field, attr_name, entry):
         field.set_value(self, attr_name, entry)
 
+    def all_field_values(self):
+        return {k: getattr(self, k) for k, v in self.get_fields().iteritems()}
+
     def __init__(self, entry):
         self._session = requests.session()
         self._entry = entry

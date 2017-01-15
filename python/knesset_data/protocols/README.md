@@ -1,4 +1,4 @@
-# Knesset Protocol Files
+# Knesset Protocol File Parsers
 
 ## Plenum
 * Parses the protocol text to get some metadata from the plenum files, e.g. [20_ptm_318579.doc](/python/knesset_data/protocols/tests/20_ptm_318579.doc)
