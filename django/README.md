@@ -4,6 +4,10 @@ This directory contains APIs and Python modules specific to usage with Django.
 
 Specifically, it means usage by Open Knesset, but we try to be as separate from it as possible.
 
+### Documentation
+
+* [index of project contents - available management commands / APIs / models](/django/knesset_data_django/README.md)
+
 ### Testing / using the project directly
 
 The project includes a testing django app which replicates Open Knesset app -

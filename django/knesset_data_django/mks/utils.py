@@ -1,6 +1,6 @@
-from knesset_data_django.mks.models import Member
+from knesset_data_django.mks.models import Member, Membership
 from knesset_data_django.persons.models import Person, PersonAlias
-
+import datetime
 
 def get_all_mk_names():
     mks = []
@@ -19,3 +19,17 @@ def get_all_mk_names():
     mks.extend([alias.person.mk for alias in mk_aliases])
     mk_names.extend(mk_aliases.values_list('name', flat=True))
     return (mks, mk_names)
+
+
+def party_at(member, date):
+    """Returns the party this memeber was at given date
+    """
+    # make sure date is not a datetime object
+    if isinstance(date, datetime.datetime):
+        date = datetime.date(date.year, date.month, date.day)
+    memberships = Membership.objects.filter(member=member).order_by('-start_date')
+    for membership in memberships:
+        if (not membership.start_date or membership.start_date <= date) and \
+                (not membership.end_date or membership.end_date >= date):
+            return membership.party
+    return None

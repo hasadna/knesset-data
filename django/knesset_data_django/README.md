@@ -23,10 +23,6 @@
   * **Member**
   * **Knesset**
 
-### utils
-
-  * **get_all_mk_names** - get the names of all current Knesset members.
-
 ## persons
 
 ### models

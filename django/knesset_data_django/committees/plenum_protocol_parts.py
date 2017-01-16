@@ -69,7 +69,7 @@ def _savePart(meeting,header,body,type):
             if header.find(name)>-1:
                 _mks_attended.add(_mks[i])
 
-def create_plenum_protocol_parts(meeting,mks=None,mk_names=None):
+def create_plenum_protocol_parts(meeting, mks=None, mk_names=None):
     global _mks
     global _mk_names
     if mks is None or mk_names is None:
