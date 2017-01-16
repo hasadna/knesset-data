@@ -1,0 +1,21 @@
+Django==1.6.11
+Pillow==2.4.0
+South==1.0
+django-extensions==1.2.5
+django-tagging==0.3.1
+django-tastypie==0.9.15
+django-tinymce==1.5.2
+okscraper-django==0.0.12
+django-ratings
+-e git://github.com/hasadna/django-annotatetext.git@72e1e69459b1efe3efad85eec1dd162f5ab03250#egg=django-annotatetext
+vobject
+django-waffle==0.11
+-e git://github.com/hasadna/django-planet.git@903de33db55bfb8d965ae4e2319fa348075351fd#egg=django-planet
+feedparser
+django-mailer==1.1.0
+-e git://github.com/hasadna/django-activity-stream.git@c56a07921b8c796fce35bda6feab4610fdf64e5d#egg=django-activity-stream
+-e git://github.com/spreeker/django-voting2.git#egg=django-voting2
+BeautifulSoup
+
+-e ./
+-e ../python

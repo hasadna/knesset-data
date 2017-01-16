@@ -1,21 +1,17 @@
 # encoding: utf-8
-from django.core.management.base import NoArgsCommand
+from knesset_data_django.common.management_commands.base_no_args_command import BaseNoArgsCommand
 from optparse import make_option
 import sys
 import csv
 from datetime import datetime
 from knesset_data_django.committees.models import Committee
 from knesset_data_django.mks.models import Member, Knesset
-import logging
 
 
-logger = logging.getLogger(__name__)
-
-
-class Command(NoArgsCommand):
+class Command(BaseNoArgsCommand):
     help = "Get committees data in csv format"
 
-    option_list = NoArgsCommand.option_list + (
+    option_list = BaseNoArgsCommand.option_list + (
         make_option('--members-attendance', dest='membersattendance', default=False, action='store_true',
                     help='get members attendance data'),
         make_option('--from-date', dest='fromdate', default='', type=str,
@@ -32,13 +28,14 @@ class Command(NoArgsCommand):
         member_ids = Member.objects.filter(current_party__knesset=Knesset.objects.current_knesset()).values_list('pk',
                                                                                                                  flat=True)
         for committee in committees:
-            logger.debug('processing committee %s' % committee.pk)
+            self.logger.debug('processing committee %s' % committee.pk)
             members = committee.members_by_presence(ids=member_ids, from_date=fromdate)
             for member in members:
                 self.csvwriter.writerow(
                     [committee.name.encode('utf-8'), member.name.encode('utf-8'), member.meetings_percentage])
 
     def handle_noargs(self, **options):
+        super(Command, self).handle_noargs(**options)
         if options.get('outputfile', '') == '':
             out = sys.stdout
         else:
