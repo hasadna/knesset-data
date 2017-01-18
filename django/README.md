@@ -7,6 +7,7 @@ Specifically, it means usage by Open Knesset, but we try to be as separate from 
 ### Documentation
 
 * [index of project contents - available management commands / APIs / models](/django/knesset_data_django/README.md)
+* [How to write scrapers](/django/knesset_data_django/HOW_TO_WRITE_SCRAPERS.md)
 
 ### Testing / using the project directly
 

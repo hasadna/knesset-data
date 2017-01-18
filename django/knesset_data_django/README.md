@@ -1,5 +1,13 @@
 # knesset_data_django
 
+This document serves as an index of the content of the knesset_data_django package
+
+We (AKA you) try to keep this document updated, but we can't guarantee it..
+
+## documentation
+
+* [How to write scrapers](/django/knesset_data_django/HOW_TO_WRITE_SCRAPERS.md)
+
 ## committees
 
 ### management commands
