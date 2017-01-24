@@ -1,5 +1,5 @@
 # encoding: utf-8
-from ...scrapers.committees_scraper import CommitteesScraper
+from ...scrapers.committees import CommitteesScraper
 from knesset_data_django.common.management_commands.base_no_args_command import BaseNoArgsCommand
 
 

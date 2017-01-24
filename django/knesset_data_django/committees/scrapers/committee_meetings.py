@@ -8,16 +8,11 @@ from ..models import Committee, CommitteeMeeting
 
 class CommitteeMeetingsScraper(BaseScraper):
 
-    def __init__(self, committee_model_class=None, committee_meeting_model_class=None, **kwargs):
-        super(CommitteeMeetingsScraper, self).__init__(**kwargs)
-        self._committee_model_class = Committee if not committee_model_class else committee_model_class
-        self._committee_meeting_model_class = CommitteeMeeting if not committee_meeting_model_class else committee_meeting_model_class
-
     def _get_meetings(self, committee_id, from_date, to_date):
         return DataserviceCommitteeMeeting.get(committee_id, from_date, to_date)
 
     def _has_existing_meeting(self, dataservice_meeting):
-        qs = self._committee_meeting_model_class.objects.filter(
+        qs = CommitteeMeeting.objects.filter(
             committee__knesset_id=dataservice_meeting.committee_id)
         if qs.filter(knesset_id=dataservice_meeting.id).exists():
             # there is an existing meeting with the same src knesset id
@@ -40,7 +35,7 @@ class CommitteeMeetingsScraper(BaseScraper):
 
     def _create_meeting(self, dataservice_meeting, committee):
         meeting_model_data = self._get_committee_meeting_fields_from_dataservice(dataservice_meeting)
-        meeting = self._committee_meeting_model_class.objects.create(committee=committee,
+        meeting = CommitteeMeeting.objects.create(committee=committee,
                                                                      **meeting_model_data)
         self.logger.debug('created meeting {}'.format(meeting.pk))
         self._reparse_protocol(meeting)
@@ -60,7 +55,7 @@ class CommitteeMeetingsScraper(BaseScraper):
                                                               from_date, to_date))
 
     def _get_committees(self, committee_ids):
-        return self._committee_model_class.objects.filter(knesset_id__gt=0, pk__in=committee_ids)
+        return Committee.objects.filter(knesset_id__gt=0, pk__in=committee_ids)
 
     def _get_committee_meeting_fields_from_dataservice(self, dataservice_meeting):
         meeting_model_data = {
@@ -77,6 +72,6 @@ class CommitteeMeetingsScraper(BaseScraper):
 
     def scrape(self, from_date, to_date, committee_ids=None):
         if not committee_ids:
-            committee_ids = self._committee_model_class.objects.all().values_list('pk', flat=True)
+            committee_ids = Committee.objects.all().values_list('pk', flat=True)
         return ((committee, self._update_committee_meetings(committee, from_date, to_date))
                 for committee in self._get_committees(committee_ids))

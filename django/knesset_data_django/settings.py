@@ -1,9 +1,5 @@
 # encoding: utf-8
-
-
-# Django settings for knesset-data testing app
-
-
+# Django settings for knesset-data-django testing app
 import os
 from knesset_data_django import KNESSET_DATA_DJANGO_APPS
 
@@ -68,6 +64,7 @@ INSTALLED_APPS = (
     'djangoratings',
     'voting',
     'waffle',
+    'django_nose',
     # knesset apps
     'auxiliary',
     'mks',
@@ -98,6 +95,9 @@ INSTALLED_APPS = (
 ) + KNESSET_DATA_DJANGO_APPS
 
 LONG_CACHE_TIME = 60
+
+TEST_RUNNER = 'knesset_data_django.common.testing.test_runner.KnessetDataDjangoTestRunner'
+
 
 try:
     from local_settings import *

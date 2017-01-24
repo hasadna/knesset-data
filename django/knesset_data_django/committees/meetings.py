@@ -1,16 +1,16 @@
 from knesset_data.protocols.committee import CommitteeMeetingProtocol
 from datetime import datetime
 import logging
-from knesset_data_django.committees.models import CommitteeMeeting, Committee, ProtocolPart
-from django.conf import settings
 import subprocess
 import os
 import urllib
 from knesset_data_django.mks.utils import get_all_mk_names, party_at
+from django.core.exceptions import ValidationError
+from .plenum_protocol_parts import create_plenum_protocol_parts
+from django.conf import settings
+from ..committees.models import Committee, CommitteeMeeting, ProtocolPart
 from annotatetext.models import Annotation
 from django.contrib.contenttypes.models import ContentType
-from django.core.exceptions import ValidationError
-from knesset_data_django.committees.plenum_protocol_parts import create_plenum_protocol_parts
 
 
 logger = logging.getLogger(__name__)

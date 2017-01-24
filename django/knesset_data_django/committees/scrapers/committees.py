@@ -1,14 +1,11 @@
-from knesset_data_django.committees.models import Committee
+# encoding: utf-8
 from knesset_data_django.common.exceptions import TooManyObjectsException
 from knesset_data.dataservice.committees import Committee as DataserviceCommittee
 from ...common.scrapers.base_scraper import BaseScraper
+from ..models import Committee
 
 
 class CommitteesScraper(BaseScraper):
-
-    def __init__(self, model_class=None, **kwargs):
-        super(CommitteesScraper, self).__init__(**kwargs)
-        self._model_class = Committee if not model_class else model_class
 
     def _get_all_active_dataservice_committees(self, has_portal_link):
         return DataserviceCommittee.get_all_active_committees(has_portal_link=has_portal_link)
@@ -35,18 +32,18 @@ class CommitteesScraper(BaseScraper):
             "knesset_note_eng": dataservice_committee.note_eng,
             "knesset_portal_link": dataservice_committee.portal_link,
         }
-        committee_qs = self._model_class.objects.filter(knesset_id=committee_id)
+        committee_qs = Committee.objects.filter(knesset_id=committee_id)
         committee_qs_count = committee_qs.count()
         if committee_qs_count == 1:
             committee = committee_qs.first()
             [setattr(committee, k, v) for k, v in committee_model_data.iteritems()]
-            committee.save()
             created = False
         elif committee_qs_count == 0:
-            committee = self._model_class.objects.create(id=committee_id, **committee_model_data)
+            committee = Committee(id=committee_id, **committee_model_data)
             created = True
         else:
             raise TooManyObjectsException()
+        committee.save()
         return committee, created
 
     def scrape_active_committees(self):

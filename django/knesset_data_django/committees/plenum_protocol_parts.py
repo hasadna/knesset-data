@@ -1,7 +1,7 @@
 import re,logging
 from xml.etree import ElementTree
 from knesset_data_django.mks.utils import get_all_mk_names
-from knesset_data_django.committees.models import ProtocolPart, CommitteeMeeting
+from .models import ProtocolPart, CommitteeMeeting
 
 
 logger = logging.getLogger(__name__)

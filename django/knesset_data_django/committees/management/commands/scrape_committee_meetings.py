@@ -2,7 +2,7 @@
 from ....common.management_commands.base_no_args_command import BaseNoArgsCommand
 from optparse import make_option
 from django.utils.timezone import now, timedelta
-from ...scrapers.committee_meetings_scraper import CommitteeMeetingsScraper
+from ...scrapers.committee_meetings import CommitteeMeetingsScraper
 
 
 class Command(BaseNoArgsCommand):
