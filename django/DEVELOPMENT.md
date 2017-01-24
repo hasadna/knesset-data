@@ -5,9 +5,16 @@
 The project includes a testing django app which replicates Open Knesset app -
 this can be used for testing and also provides documentation.
 
+##### Preconditions
+
+* You have the following directories as siblings under the same root directory:
+  * knesset-data - clone of knesset-data repository
+  * Open-Knesset - clone of Open Knesset repository
+* You are running inside knesset-data python virtualenv
+
 ##### Install requiremnets
 
-* `(knesset-data) django$ pip install -r requirements.txt`
+* `(knesset-data) django$ pip install -r dev_requirements.txt`
 
 ##### Create the DB and migrate (uses Sqlite3 by default)
 
