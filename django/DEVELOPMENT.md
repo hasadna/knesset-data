@@ -52,4 +52,4 @@ For example, the following commands will fill in committees data in your DB
 
 ## See also
 
-* [Scrapers guide](/django/SCRAPERS.md)
+* [Scrapers guide](SCRAPERS.md)
