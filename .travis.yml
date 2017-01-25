@@ -5,14 +5,6 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y antiword
 install:
-  - pip install --upgrade pip
-  - pip install -r django/requirements.txt
-  - pip install -r python/requirements.txt
-  - cd python && pip install .
-  - cd django && pip install .
-  - pip install https://github.com/OriHoch/Open-Knesset/archive/move-refactor-data-gathering-and-model-to-knesset-data.zip#egg=Open-Knesset
+  - .travis/install.sh
 script:
-  - cd python && bin/run_tests.sh
-  - cd django && ./manage.py test
-  - cd django && ./manage.py syncdb --noinput
-  - cd django && ./manage.py migrate
+  - .travis/script.sh
