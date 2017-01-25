@@ -22,7 +22,8 @@ This is an object that extends [common.scrapers.base_scraper.BaseScraper](knesse
 
 ##### Examples
 
-* [committees.scrapers.committees_scraper](knesset_data_django/committees/scrapers/committees_scraper.py)
+* [committees.scrapers.committees.CommitteesScraper](knesset_data_django/committees/scrapers/committees.py)
+* [committees.scrapers.committee_meetings.CommitteeMeetingsScraper](knesset_data_django/committees/scrapers/committee_meetings.py)
 
 
 ## Scraper Unit/functional tests
@@ -38,8 +39,8 @@ Tests are django test cases and can use the test DB.
   * should use reusable functions with clear input / output as much as possible
 
 ##### Examples
-* [committees.scrapers.tests](knesset_data_django/committees/scrapers/tests.py)
-
+* [committees.scrapers.tests.test_committee_meetings.CommitteeMeetingsScraperTestCase](knesset_data_django/committees/scrapers/tests/test_committee_meetings.py)
+* [committees.scrapers.tests.test_committees.CommitteesScraperTestCase](knesset_data_django/committees/scrapers/tests/test_committees.py)
 
 ### Management commands
 
