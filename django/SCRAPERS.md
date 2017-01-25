@@ -10,7 +10,7 @@ That's why it's important to keep the scrapers in this project in high quality t
 
 Each scraper should have a scraper object.
 
-This is an object that extends [common.scrapers.base_scraper.BaseScraper](/django/knesset_data_django/common/scrapers/base_scraper.py)
+This is an object that extends [common.scrapers.base_scraper.BaseScraper](knesset_data_django/common/scrapers/base_scraper.py)
 
 ##### Guidelines
 
@@ -22,7 +22,7 @@ This is an object that extends [common.scrapers.base_scraper.BaseScraper](/djang
 
 ##### Examples
 
-* [committees.scrapers.committees_scraper](/django/knesset_data_django/committees/scrapers/committees_scraper.py)
+* [committees.scrapers.committees_scraper](knesset_data_django/committees/scrapers/committees_scraper.py)
 
 
 ## Scraper Unit/functional tests
@@ -38,14 +38,14 @@ Tests are django test cases and can use the test DB.
   * should use reusable functions with clear input / output as much as possible
 
 ##### Examples
-* [committees.scrapers.tests](/django/knesset_data_django/committees/scrapers/tests.py)
+* [committees.scrapers.tests](knesset_data_django/committees/scrapers/tests.py)
 
 
 ### Management commands
 
 Management commands are the way we run the scrapers.
 
-Management commands should extend [BaseNoArgsCommand](/django/knesset_data_django/common/management_commands/base_no_args_command.py).
+Management commands should extend [BaseNoArgsCommand](knesset_data_django/common/management_commands/base_no_args_command.py).
 
 ##### Guildelines
 
@@ -55,8 +55,8 @@ Management commands should extend [BaseNoArgsCommand](/django/knesset_data_djang
 
 ##### Examples
 
-* [committees.management.commands.scrape_committees](/django/knesset_data_django/committees/management/commands/scrape_committees.py)
+* [committees.management.commands.scrape_committees](knesset_data_django/committees/management/commands/scrape_committees.py)
 
 ## See also
 
-* [Development guide](/django/DEVELOPMENT.md)
+* [Development guide](DEVELOPMENT.md)
