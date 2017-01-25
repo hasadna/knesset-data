@@ -46,8 +46,9 @@ For example, the following commands will fill in committees data in your DB
 * install knesset-data and knesset-data-django in the existing project virtualenv
   * `(oknesset) ~/Open-Knesset$ pip install -e ../knesset-data/python`
   * `(oknesset) ~/Open-Knesset$ pip install -e ../knesset-data/django`
-* add relevant the knesset-data-django apps to INSTALLED_APPS -
-  * `(oknesset) ~/Open-Knesset$ `
+* add the relevant knesset-data-django apps to INSTALLED_APPS in your project's django settings
+  * `from knesset_data_django import KNESSET_DATA_DJANGO_APPS`
+  * `INSTALLED_APPS += KNESSET_DATA_DJANGO_APPS`
 
 ## See also
 

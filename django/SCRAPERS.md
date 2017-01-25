@@ -1,5 +1,10 @@
 # kneseset-data-django scrapers guide
 
+**Important** Please be sure to read and understand this document before working on scrapers.
+We know from (bitter?) experience that scrapers will always require changes.
+That's why it's important to keep the scrapers in this project in high quality to allow maintanence and changes in the future.
+
+**Thank you for your cooperation!**
 
 ### Scraper objects
 
