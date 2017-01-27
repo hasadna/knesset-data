@@ -15,3 +15,4 @@ Generally, it is meant to contain well documented and tested code that handles t
 
 * [Development guide](/django/DEVELOPMENT.md)
 * [Scrapers guide](/django/SCRAPERS.md)
+* [Releases](/django/RELEASES.md)

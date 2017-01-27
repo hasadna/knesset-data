@@ -3,6 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='knesset-data-django',
+    version='1.3.0',
     description='Django apps / modules for handling Israeli parliament (Knesset) data',
     author='Ori Hoch',
     author_email='ori@uumpa.com',
