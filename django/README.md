@@ -13,6 +13,6 @@ Generally, it is meant to contain well documented and tested code that handles t
 
 ### Documentation
 
-* [Development guide](/django/DEVELOPMENT.md)
-* [Scrapers guide](/django/SCRAPERS.md)
-* [Releases](/django/RELEASES.md)
+* [Development guide](DEVELOPMENT.md)
+* [Scrapers guide](SCRAPERS.md)
+* [Releases](RELEASES.md)
