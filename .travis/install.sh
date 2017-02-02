@@ -7,4 +7,4 @@ pip install -r django/requirements.txt
 pip install -r python/requirements.txt
 pip install python/
 pip install django/
-pip install https://github.com/OriHoch/Open-Knesset/archive/move-refactor-data-gathering-and-model-to-knesset-data.zip#egg=Open-Knesset
+pip install https://github.com/hasadna/Open-Knesset/archive/e28339da7ca92df96fc79b89351286e2715fcff0.zip#egg=Open-Knesset
