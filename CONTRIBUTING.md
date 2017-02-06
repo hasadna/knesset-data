@@ -1,4 +1,4 @@
- ## Data Contributions
+## Data Contributions
 
 An important part of Knesset-Aata project is to document and test the actual Knesset Data.
 
