@@ -50,3 +50,4 @@ https://github.com/OriHoch/django-slack/archive/django1.6-5.2.2.zip
 unicodecsv==0.14.1
 django-fastsitemaps==0.2
 subprocess32==3.2.7
+knesset-data==1.5.0
