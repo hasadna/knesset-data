@@ -16,7 +16,7 @@ APIs and documentation to allow getting data about the Israeli Parliament (Kness
 ##### Low level Python API
 
 * Provides methods to fetch and parse Knesset data using Python.
-* [python/README.md](python/README.md)
+* https://github.com/hasadna/knesset-data-python
 * Quickstart:
 ```
 $ pip install knesset-data
