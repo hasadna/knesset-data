@@ -1,2 +1,0 @@
-class TooManyObjectsException(Exception):
-    pass
