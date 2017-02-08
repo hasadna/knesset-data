@@ -1,5 +1,4 @@
 # knesset-data
-[![travis-ci build status](https://travis-ci.org/hasadna/knesset-data.svg)](https://travis-ci.org/hasadna/knesset-data)
 
 APIs and documentation to allow getting data about the Israeli Parliament (Knesset).
 
@@ -15,10 +14,14 @@ APIs and documentation to allow getting data about the Israeli Parliament (Kness
 
 ##### Knesset datapackage
 
+[![travis-ci build status](https://travis-ci.org/hasadna/knesset-data-datapackage.svg)](https://travis-ci.org/hasadna/knesset-data-datapackage)
+
 * Provides downbladable package with all the Knesset data
 * https://github.com/hasadna/knesset-data-datapackage
 
 ##### Low level Python API
+
+[![travis-ci build status](https://travis-ci.org/hasadna/knesset-data-python.svg)](https://travis-ci.org/hasadna/knesset-data-python)
 
 * Provides methods to fetch and parse Knesset data using Python.
 * https://github.com/hasadna/knesset-data-python
@@ -32,6 +35,8 @@ print(', '.join([committee.name for committee in Committee.get_all_active_commit
 
 ##### Higher level Django module
 
+[![travis-ci build status](https://travis-ci.org/hasadna/knesset-data-django.svg)](https://travis-ci.org/hasadna/knesset-data-django)
+
 * Store Knesset data in a structured DB and provides logic to handle the DB data.
-* [django/README.md](django/README.md)
-* Quickstart: see the [development guide](django/DEVELOPMENT.md)
+* https://github.com/hasadna/knesset-data-django
+* Quickstart: see the [development guide](https://github.com/hasadna/knesset-data-django/blob/master/DEVELOPMENT.md)
