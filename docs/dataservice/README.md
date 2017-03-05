@@ -2,13 +2,6 @@
 
 It's a standard [OData](http://www.odata.org/) interface providing access to most Knesset data.
 
-## Services Documentation and Usage Examples
-
-* [Votes](/docs/dataservice/VOTES.md)
-* [Laws](/docs/dataservice/LAWS.md)
-
-## 
-
 ## Available source data
 
 There are multiple versions of the Knesset APIs with the newest API replacing the old ones.
@@ -57,6 +50,11 @@ Open the app -
   * messages: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/KnessetMessagesData.svc/$metadata
   * mmm: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/MMMData.svc/$metadata
   * lobbyists: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/LobbyistData.svc/$metadata
+
+## Specific services Documentation and Usage Examples
+
+* [Votes](/docs/dataservice/VOTES.md)
+* [Laws](/docs/dataservice/LAWS.md)
 
 ## See also
 
