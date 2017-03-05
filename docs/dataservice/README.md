@@ -59,4 +59,4 @@ Open the app -
 ## See also
 
 * All the knesset APIs are available [here](http://main.knesset.gov.il/Activity/Info/Pages/Databases.aspx)
-* See [constants.py](/python/knesset_data/dataservice/constants.py) for the definitive list of the available service endpoints
+* See [constants.py](https://github.com/hasadna/knesset-data-python/blob/master/knesset_data/dataservice/constants.py) for the definitive list of the service endpoints we use in the knesset data python implementation
