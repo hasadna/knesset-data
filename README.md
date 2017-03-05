@@ -9,7 +9,7 @@ APIs and documentation to allow getting data about the Israeli Parliament (Kness
 
 ##### Data sources documentation
 
-* [documentation about the Knesset data sources](docs/Data%20Sources.md)
+* [documentation about the Knesset data sources](/docs/DataSources.md)
 * We also track Knesset datasources bugs and known problems - [see issues labeled "Knesset bug"](https://github.com/hasadna/knesset-data/issues?q=is%3Aissue+is%3Aopen+label%3A%22Knesset+bug%22)
 
 ##### Knesset datapackage
