@@ -29,6 +29,20 @@ Open the app -
 
 ### Old API versions
 
+* new old APIS
+  * הצעות חוק פרטיות לדיון מוקדם: http://knesset.gov.il/Odata_old/LawsData.svc/
+  * הצעות חוק שעברו קריאה ראשונה (פרטיות וממשלתיות): http://knesset.gov.il/Odata_old/BillsData.svc/
+  * חוקים שהתקבלו לאחר קריאה שלישית: http://knesset.gov.il/Odata_old/FinalLawsData.svc/
+  * חברי כנסת, ממשלות וסיעות: http://knesset.gov.il/Odata_old/KnessetMembersData.svc/
+  * הצבעות חברי הכנסת במליאה: http://knesset.gov.il/Odata/Votes.svc/
+  * מהוועדות - סדרי היום ופרוטוקולים: http://knesset.gov.il/Odata_old/CommitteeScheduleData.svc/
+  * הודעות לעיתונות: http://online.knesset.gov.il/WsinternetSps/KnessetDataService/KnessetMessagesData.svc/
+  * מרכז מחקר ומידע – מסמכי הממ"מ: http://knesset.gov.il/Odata/MMM.svc/
+  * שדלנים: http://knesset.gov.il/Odata/Lobbyists.svc/
+  * שאילתות: http://knesset.gov.il/Odata_old/Queries.svc/
+  * הצעות חוק לקריאה השנייה והשלישית (פונץ' בננה): http://knesset.gov.il/Odata_old/PunchBananaData.svc/
+  * ישיבות המליאה: http://knesset.gov.il/Odata_old/PlmSederYomData.svc/
+
 * old APIS (v3)
   * laws: http://knesset.gov.il/KnessetOdataService/LawsData.svc/
   * bills: http://knesset.gov.il/KnessetOdataService/BillsData.svc/
