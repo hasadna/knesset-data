@@ -10,7 +10,8 @@ There are multiple versions of the Knesset APIs with the newest API replacing th
 
 The new API was silently launched by Knesset on March 5, 2017 - it is a full re-write of the old APIs and is supposed to be well documented and supported (as much as Knesset can..)
 
-XOData endpoint http://knesset.gov.il/Odata/ParliamentInfo.svc/$metadata
+* XOData endpoint http://knesset.gov.il/Odata/ParliamentInfo.svc/$metadata
+* [Knesset OData documentation (draft)](https://docs.google.com/document/d/1FHqabNsYlSNyul1lArmnONLHnYGA4XQNMs3k-dPgUok/edit?usp=sharing)
 
 #### Browsing the source data
 
