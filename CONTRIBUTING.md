@@ -3,7 +3,7 @@
 Want to help Knesset data? Great!
 
 * Join our slack channel and talk to us so we can help you help us.
-  * [click here to open an issue with request for slack invite](https://github.com/hasadna/knesset-data/issues/new?title=Please%20invite%20me%20to%20slack&body=Hi,%20please%20invite%20me%20to%20the%20knesset%20data%20slack%20channel,%20thanks!&labels=joinslack)
+  * please contact a team member and ask to be invited
 
 
 ## Code Contributions
