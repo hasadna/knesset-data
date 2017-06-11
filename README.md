@@ -40,3 +40,7 @@ print(', '.join([committee.name for committee in Committee.get_all_active_commit
 * Store Knesset data in a structured DB and provides logic to handle the DB data.
 * https://github.com/hasadna/knesset-data-django
 * Quickstart: see the [development guide](https://github.com/hasadna/knesset-data-django/blob/master/DEVELOPMENT.md)
+
+### Known issues / FAQ / Common problems
+* check each sub-project's README for FAQ specific to that project
+* [How to decide where to move existing code from open knesset?](https://github.com/hasadna/knesset-data/issues/120)
